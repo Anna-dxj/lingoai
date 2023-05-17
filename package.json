@@ -1,0 +1,19 @@
+{
+  "name": "project_atlas",
+  "version": "1.0.0",
+  "description": "AI assist language tutoring app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AmirTahsini/project_atlas.git"
+  },
+  "author": "Amir, Anna, Dannon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmirTahsini/project_atlas/issues"
+  },
+  "homepage": "https://github.com/AmirTahsini/project_atlas#readme"
+}
