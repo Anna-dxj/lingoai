@@ -31,7 +31,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          {/* <Route exact path='/' component={HomeMenu} />
+          {/* <Route exact path='/home' component={HomeMenu} />
           <Route exact path='/notebook' component={Notebook} />
           <Route exact path='/wordchain' component={WordChain} />
           <Route exact path='/practicechat' component={PracticeChat} /> */}

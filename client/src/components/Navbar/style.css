@@ -1,0 +1,16 @@
+nav {
+    /* background-color: lightblue; */
+}
+
+.title {
+    padding: 13%;
+    margin: 5%;
+}
+
+.home-link {
+    color: black;
+}
+
+.home-link:hover {
+    color: black;
+}
