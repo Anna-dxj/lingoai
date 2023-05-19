@@ -1,29 +1,29 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-   type User {
-     _id: ID
-     username: String
-     email: String
-     savedWords: [Word]
-     wordCount: Int
-   }
-   
-   type Word {
+  type User {
     _id: ID
-    wordID: String!
-    userWord: String!
-    translatedText: String!
-   }
+    username: String
+    email: String
+    savedWords: [Word]
+    wordCount: Int
+  }
 
-   input wordInput {
+  type Word {
     _id: ID
     wordID: String!
     l1_text: String!
     l2_text: String!
-   }
+  }
 
-   type Query {
+  input wordInput {
+    _id: ID
+    wordID: String!
+    l1_text: String!
+    l2_text: String!
+  }
+
+  type Query {
     me: User
   }
 
@@ -35,8 +35,8 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    savedWord(newWord: wordInput): User
-    removeWord(wordID: String!): User
+    savedWord(wordID: String!, l1_text: String!, l2_text: String!): User
+    removeWord(wordId: ID!): User
   }
 `;
 
