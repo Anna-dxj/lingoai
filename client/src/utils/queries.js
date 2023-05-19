@@ -8,9 +8,8 @@ export const QUERY_USER = gql`
       email
       savedWords {
         _id: ID
-        wordID: String!
-        l1_text: String!
-        l2_text: String!
+        original_text: String!
+        es: String!
       }
     }
   }
