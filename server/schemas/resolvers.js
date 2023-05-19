@@ -46,11 +46,11 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeWord: async (parent, { wordID }, context) => {
+    removeWord: async (parent, { wordId }, context) => {
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedWords: { wordID } } },
+          { $pull: { savedWords: { wordId } } },
           { new: true, runValidators: true }
         );
         return updateUser;

@@ -1,18 +1,18 @@
 const { Schema, model } = require('mongoose');
 
 const wordSchema = new Schema({
-  wordID: {
+  original_text: {
     type: String,
     required: true,
   },
-  l2_text: {
-    type: String,
-    required: true,
-  },
-  l1_text: {
-    type: String,
-    required: true,
-  },
+  translated_text: [
+    {
+      es: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 // const Word = model('Word', wordSchema);
