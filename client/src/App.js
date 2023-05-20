@@ -33,9 +33,9 @@ function App() {
         <Navbar />
         <Routes>
           {/* 
-          <Route path='/practice' element={<Home />} />
           <Route path='/notebook' element={<Notebook />} /> 
           */}
+          <Route path='/home' element={<WrongPage />} />
           <Route path="/login" element={<LoginPage />}/>
         </Routes>
       </Router>
