@@ -25,26 +25,24 @@ export const ADD_USER = gql`
   }
 `;
 
+export const SAVED_WORD = gql`
+  mutation savedWord(($wordId: ID!, $original_text: String!, $es: String!) {
+    savedWord(wordId: $wordId, original_text: $original_text, es: $es) {
+      _id
+      original_text
+      translated_text {
+        es
+      }
+    }
+  }
+`;
 
-//Caused graphql bug from Thursday night
-
-// export const SAVED_WORD = gql`
-//   mutation savedWord(($wordID: String!, $l1_text: String!, $l2_text: String!) {
-//     savedWord(wordID: $wordID, l1_text: $l1_text, l2_text: $l2_text) {
-//       _id
-//       wordID
-//       l1_text
-//       l2_text
-//     }
-//   }
-// `;
-
-// export const REMOVE_WORD = gql`
-//   mutation remove($wordId: ID!) {
-//     removeWord(wordId: $wordId) {
-//       word {
-//         wordId
-//       }
-//     }
-//   }
-// `;
+export const REMOVE_WORD = gql`
+  mutation remove($wordId: ID!) {
+    removeWord(wordId: $wordId) {
+      word {
+        _id
+      }
+    }
+  }
+`;

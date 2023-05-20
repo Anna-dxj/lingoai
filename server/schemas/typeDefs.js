@@ -11,16 +11,14 @@ const typeDefs = gql`
 
   type Word {
     _id: ID
-    wordID: String!
-    l1_text: String!
-    l2_text: String!
+    original_text: String!
+    es: String!
   }
 
   input wordInput {
     _id: ID
-    wordID: String!
-    l1_text: String!
-    l2_text: String!
+    original_text: String!
+    es: String!
   }
 
   type Query {
@@ -35,7 +33,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    savedWord(wordID: String!, l1_text: String!, l2_text: String!): User
+    savedWord(original_text: String!, es: String!): User
     removeWord(wordId: ID!): User
   }
 `;
