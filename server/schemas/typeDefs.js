@@ -30,11 +30,17 @@ const typeDefs = gql`
     user: User
   }
 
+  type Response {
+    id: ID!
+    message: String!
+  }
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     savedWord(original_text: String!, es: String!): User
     removeWord(wordId: ID!): User
+    sendUserInput(input: String!): Response!
   }
 `;
 
