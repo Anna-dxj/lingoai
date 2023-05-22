@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
+const { callOpenAI } = require('../utils/API')
 
 const resolvers = {
   Query: {
@@ -56,6 +57,21 @@ const resolvers = {
         return updateUser;
       }
       throw new AuthenticationError('You need to be logged in!');
+    },
+    sendUserInput: async (_, { input }) => {
+      // spread word into an array then pop last letter/index
+      //put last letter into a variable called letter
+      const letter = input[input.length - 1];
+
+      // Make the call to the OpenAI API or any other backend operations
+
+      const response = await callOpenAI(letter);
+
+      // Return the response object with the required fields
+      return {
+        id: response.id,
+        message: response.message,
+      };
     },
   },
 };
