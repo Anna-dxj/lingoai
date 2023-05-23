@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Row, Col, Form, Input, Button, Space, ConfigProvider } from 'antd';
+import { Row, Col, Form, Input, Button, Space, ConfigProvider, Modal } from 'antd';
 import {SendOutlined} from '@ant-design/icons'
 import UserResponse from '../UserResponse'
 // import AiResponse from '../AiResponse'
@@ -12,6 +12,7 @@ const GameEl = () => {
     const [activeTimer, setActiveTimer] = useState(false);
     const [showText , setShowText] = useState(true);
     const [disabledEl, setDisabledEl] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const cardRef = useRef(null)
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const GameEl = () => {
         if (remainingTime===0) {
             clearInterval(timer);
             setDisabledEl(true);
+            setShowModal(true);
         }
 
         return () => clearInterval(timer)
@@ -69,6 +71,17 @@ const GameEl = () => {
         setActiveTimer(true);
         setShowText(false);
         setFormState({input: ''})
+    }
+    const handleReplayGame = () => {
+        setMessage([]);
+        setRemainingTime(301);
+        setActiveTimer(false);
+        setShowText(true);
+        setDisabledEl(false);
+        setShowModal(false);
+    }
+    const handleHideModal = () => {
+        setShowModal(false);
     }
     return (
         <div>
@@ -134,6 +147,23 @@ const GameEl = () => {
                     </Form>
                 </ConfigProvider>
             </div>
+            <ConfigProvider theme={{
+                token: {
+                    colorPrimary: '#3BC14A'
+                }
+            }}>
+                <Modal
+                    title="Play again?"
+                    okText="Yes"
+                    centered
+                    cancelText="No"
+                    open={showModal}
+                    onOk={handleReplayGame}
+                    onCancel={handleHideModal}
+                >
+                    
+                </Modal>
+            </ConfigProvider>
         </div>
     )
 }

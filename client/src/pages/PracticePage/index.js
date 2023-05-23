@@ -9,8 +9,8 @@ const PracticePage = () => {
         <div>
             <h2 className="page-title">Practice</h2>
             {/* {Render if chose game} */}
-            {/* <GameEl />  */}
-            <ConvoEl />
+            <GameEl /> 
+            {/* <ConvoEl /> */}
         </div>
     )
 }
