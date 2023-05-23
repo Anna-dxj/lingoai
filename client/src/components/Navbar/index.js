@@ -20,9 +20,9 @@ const Navbar = () => {
                 <Col sm={10}>
                     <ConfigProvider theme={{
                         token: {
-                            colorPrimary: '#41C745',
-                            colorBgBase: '#333333',
-                            colorTextBase: '#41C745',
+                            colorPrimary: '#3BC14A',
+                            colorBgBase: '#4D5057',
+                            colorTextBase: '#3BC14A',
                             // lineType: 'none',
                             lineWidth: -1,
                         },

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom'
 import {LockOutlined, MailOutlined} from '@ant-design/icons'
-import {Button, Form, Input} from 'antd'
+import {Button, Form, Input, ConfigProvider} from 'antd'
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 
@@ -52,43 +52,50 @@ const LoginForm = () => {
                     <Link to="/home"> back to the homepage.</Link>
                 </p>
             ) : (
-                <Form
-                    className="login-form"
-                    layout="vertical"
-                    onFinish={handleFormSubmit}
+                <ConfigProvider theme={{
+                    token: {
+                        colorPrimary: '#3BC14A',
+                    },
+                }}
                 >
-                    <Form.Item
-                        label="Email"
-                        name="Email"
+                    <Form
+                        className="login-form"
+                        layout="vertical"
+                        onFinish={handleFormSubmit}
                     >
-                        <Input 
-                            prefix={<MailOutlined className="site-form-item-icon" />}
-                            type="email"
-                            placeholder="email@email.com"
-                            name="email"
-                            value={formState.email}
-                            onChange={handleChange}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        label="Password"
-                        name="Password"
-                    >
-                        <Input 
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            value={formState.password}
-                            onChange={handleChange}
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button type="primary" className="login-form-button" htmlType='submit'>
-                            Login
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        <Form.Item
+                            label="Email"
+                            name="Email"
+                        >
+                            <Input 
+                                prefix={<MailOutlined className="site-form-item-icon" />}
+                                type="email"
+                                placeholder="email@email.com"
+                                name="email"
+                                value={formState.email}
+                                onChange={handleChange}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="Password"
+                            name="Password"
+                        >
+                            <Input 
+                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                value={formState.password}
+                                onChange={handleChange}
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" className="login-form-button" htmlType='submit'>
+                                Login
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </ConfigProvider>
             )}
 
             {error && (

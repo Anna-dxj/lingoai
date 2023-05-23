@@ -1,5 +1,13 @@
+:root {
+    --dark-gray: #4d5057;
+    --dark-green: #4e6e5d;
+    --shamrock: #4da167;
+    --dark-pastel: #41c745;
+    --linen: #f9ebe0;
+}
+
 nav {
-    background-color: #333333;
+    background-color: var(--dark-gray);
 }
 
 
@@ -13,7 +21,7 @@ nav {
 }
 
 .home-link:hover {
-    color: #41C745;
+    color: var(--dark-pastel);
 }
 
 .menu-item-custom {

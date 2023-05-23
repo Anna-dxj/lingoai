@@ -11,7 +11,7 @@ const LoginPage = () => {
     }
 
     return (
-        <main>
+        <main className='bg-color'>
             {isLoginForm ? (
                 <h2 className="page-title">Login</h2>
             ) : (
