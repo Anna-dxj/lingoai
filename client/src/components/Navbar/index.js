@@ -23,6 +23,8 @@ const Navbar = () => {
                             colorPrimary: '#41C745',
                             colorBgBase: '#333333',
                             colorTextBase: '#41C745',
+                            // lineType: 'none',
+                            lineWidth: -1,
                         },
                     }}>
                         <Menu mode="horizontal" className="custom-menu">
