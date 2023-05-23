@@ -48,13 +48,14 @@ export const REMOVE_WORD = gql`
 `;
 
 //client mutation for ChatGPT API
+// Specify the fields you expect in the response
+// You can customize this based on your schema
 export const SEND_USER_INPUT = gql`
   mutation SendUserInput($input: String!) {
-    sendUserInput(input: $input) {
-      # // Specify the fields you expect in the response
-      # // You can customize this based on your schema
+    sendUserInput(input: $input) {\
       id
       message
     }
   }
-`;
+  `;
+  

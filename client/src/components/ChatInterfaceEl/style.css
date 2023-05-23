@@ -6,24 +6,12 @@
     --linen: #f9ebe0;
 }
 
-nav {
+.chat-box-card {
     background-color: var(--dark-gray);
-}
-
-
-.title {
-    padding: 5%, 13%;
-    margin: 5%;
-}
-
-.home-link {
     color: white;
-}
-
-.home-link:hover {
-    color: var(--dark-pastel);
-}
-
-.menu-item-custom {
-    color: white;
+    padding: 1.25rem;
+    margin: 1.25rem; 
+    border-radius:  1.25rem;
+    box-shadow: 3px 6px 27px 0px #0000007e;
+    transition: box-shadow 0.7s ease-in-out;
 }
