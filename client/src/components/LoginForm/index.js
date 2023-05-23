@@ -56,8 +56,7 @@ const LoginForm = () => {
                     token: {
                         colorPrimary: '#3BC14A',
                     },
-                }}
-                >
+                }}>
                     <Form
                         className="login-form"
                         layout="vertical"

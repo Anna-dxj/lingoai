@@ -8,8 +8,8 @@ const PracticePage = () => {
     return (
         <div>
             {/* {Render if chose game} */}
-            <GameEl /> 
-            {/* <ConvoEl /> */}
+            {/* <GameEl />  */}
+            <ConvoEl />
         </div>
     )
 }

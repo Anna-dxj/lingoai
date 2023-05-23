@@ -114,7 +114,11 @@ const GameEl = () => {
                 </div>
             </div>
             <div className="form-styles">
-                <ConfigProvider>
+                <ConfigProvider theme={{
+                    token: {
+                        colorPrimary: '#3BC14A',
+                    }
+                }}>
                     <Form onFinish={handleFormSubmit} disabled={disabledEl}>
                         <Form.Item>
                             <Space.Compact className='form-input'>
