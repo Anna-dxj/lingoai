@@ -26,7 +26,7 @@ export const ADD_USER = gql`
 `;
 
 export const SAVED_WORD = gql`
-  mutation savedWord(($wordId: ID!, $original_text: String!, $es: String!) {
+  mutation savedWord($wordId: ID!, $original_text: String!, $es: String!) {
     savedWord(wordId: $wordId, original_text: $original_text, es: $es) {
       _id
       original_text
@@ -51,8 +51,8 @@ export const REMOVE_WORD = gql`
 export const SEND_USER_INPUT = gql`
   mutation SendUserInput($input: String!) {
     sendUserInput(input: $input) {
-      // Specify the fields you expect in the response
-      // You can customize this based on your schema
+      # // Specify the fields you expect in the response
+      # // You can customize this based on your schema
       id
       message
     }
