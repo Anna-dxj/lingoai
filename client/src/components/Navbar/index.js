@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import 'antd/dist/antd'
 import './style.css'
+import Auth from '../../utils/auth'
 
 const Navbar = () => {
     return (
@@ -19,48 +20,41 @@ const Navbar = () => {
                 <Col sm={10}>
                     <ConfigProvider theme={{
                         token: {
-                            // ColorPrimary changes the underline color & text on active & hover
-                            // & acvive color 
-                            // colorPrimary: 'red',
-                            // // Changes background color of menu & submenu
-                            // colorBgBase: 'purple',
-                            // // changes background color of main part of menu
-                            // colorBgContainer: 'pink',
-                            // // Changes background color of active submenu
-                            // colorPrimaryBg: 'green',
-                            // // Changes background hover of inactive submenu 
-                            // colorBgTextHover: 'orange',
-                        }
+                            colorPrimary: '#41C745',
+                            colorBgBase: '#333333',
+                            colorTextBase: '#41C745',
+                        },
                     }}>
                         <Menu mode="horizontal" className="custom-menu">
                             {/* For "custom" styling: 
                                 - colorGbContainer (string) -> fill background color  
                                 - colorTextDisabled - color of text in disabled state
                                 - controlItemBgActive - color when active*/}
-                            <Menu.Item className="menu-item-red">
+                            
+                            <Menu.Item className="menu-item-custom">
                                 <Link to="/notebook" className="menu-link">Notebook</Link>
                             </Menu.Item>
-                            <Menu.Item className="custom-menu-item">
+                            {/* <Menu.Item className="custom-menu-item">
                                 <Link to="/wordchain">Play WordChain</Link>
                             </Menu.Item>
                             <Menu.Item className="custom-menu-item">
                                 <Link to='/practicechat'>Practice Conversation</Link>
-                            </Menu.Item>
+                            </Menu.Item> */}
                             {/* */}
-                            <Menu.Item className="custom-menu-item">
-                                <Link to='/account'>Account Settings</Link>
+                            <Menu.Item className="menu-item-custom">
+                                <Link to="/practice" className="menu-link">Practice</Link>
                             </Menu.Item>
-                            {/* {
+                            {
                                 Auth.loggedIn() ? (
-                                    <Menu.Item>
+                                    <Menu.Item className='menu-item-custom'>
                                         <Link to='/home' onClick={Auth.logout}>Logout</Link>
                                     </Menu.Item>
                                 ) : (
-                                    <Menu.Item>
+                                    <Menu.Item className='menu-item-custom'>
                                         <Link to='/login'> Login</Link>
                                     </Menu.Item>
                                 )
-                            } */}
+                            }
                         </Menu>
                     </ConfigProvider>
                 </Col>

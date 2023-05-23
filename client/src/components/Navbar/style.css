@@ -1,6 +1,7 @@
 nav {
-    /* background-color: lightblue; */
+    background-color: #333333;
 }
+
 
 .title {
     padding: 5%, 13%;
@@ -8,9 +9,13 @@ nav {
 }
 
 .home-link {
-    color: black;
+    color: white;
 }
 
 .home-link:hover {
-    color: black;
+    color: #41C745;
+}
+
+.menu-item-custom {
+    color: white;
 }
