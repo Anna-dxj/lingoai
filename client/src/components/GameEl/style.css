@@ -56,6 +56,17 @@
     color: var(--dark-pastel)
 }
 
+.sticky-container {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.timer-div {
+    padding: 1rem;
+    text-align: center;
+}
+
 .red {
     color: red;
 }

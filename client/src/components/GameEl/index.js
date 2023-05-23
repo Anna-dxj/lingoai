@@ -10,7 +10,7 @@ const GameEl = () => {
     const [message, setMessage] = useState([])
     const [remainingTime, setRemainingTime] = useState(301);
     const [activeTimer, setActiveTimer] = useState(false);
-    const [showCard , setShowCard] = useState(false);
+    const [showText , setShowText] = useState(true);
     const [disabledEl, setDisabledEl] = useState(false);
     const cardRef = useRef(null)
 
@@ -67,7 +67,7 @@ const GameEl = () => {
         // 1. send this input to api
         console.log([...message, newMessage])
         setActiveTimer(true);
-        setShowCard(true);
+        setShowText(false);
         setFormState({input: ''})
     }
     return (
@@ -81,25 +81,29 @@ const GameEl = () => {
                             <li><span className="list-item-main">Validity</span> - Each word must be a valid dictionary word</li>
                             <li><span className="list-item-main">Chaining</span> - The word played subsequently must start with the letter of hte last word. For example, if the previous word is "casa", the next word must begin wiht an "a".</li>
                             <li><span className="list-item-main">No repeating words</span> - Players cannot use a word that has already been played in the current game.</li>
-                            <li><span className="list-item-main">Time limit</span> - The game will last for 5 minutes. Please note that checking the definition of a word will not pause the timer.</li>
+                            <li><span className="list-item-main">Time limit</span> - The game will last for 5 minutes and starts when you submit your first word. Please note that checking the definition of a word will not pause the timer.</li>
                             <li><span className="list-item-main">Winning</span> - </li>
                         </ul>
                     </div>
                 </Col>
             </Row>
             <Row justify="center">
-                <div className="timer-div">
-                    <h4>Remaining Time: {
-                            remainingTime <= 300 ? (
-                                <span className={remainingTime <= 5 ? 'red' : ''}>{formatTimer(remainingTime)}</span>
-                                ) : (
-                                <span>5:00</span>
-                            )
-                        }
-                    </h4>
+                <div className="">
+                    {/* If time, make sticky */}
+                    <div className="timer-div">
+                        <h4>Remaining Time: {
+                                remainingTime <= 300 ? (
+                                    <span className={remainingTime <= 5 ? 'red' : ''}>{formatTimer(remainingTime)}</span>
+                                    ) : (
+                                    <span>5:00</span>
+                                )
+                            }
+                        </h4>
+                    </div>
                 </div>
             </Row>
-            <div className={showCard ? 'game-card' : 'hidden'} ref={cardRef}>
+            <div className='game-card' ref={cardRef}>
+                <p className={showText ? '' : 'hidden'}>Send a word to start your game!</p>
                 <div>
                     {message.map(({id, content})=>{
                         return (<UserResponse id={id} content={content}/>)
