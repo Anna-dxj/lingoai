@@ -11,7 +11,6 @@ const GameEl = () => {
     const [remainingTime, setRemainingTime] = useState(301);
     const [activeTimer, setActiveTimer] = useState(false);
     const [showCard , setShowCard] = useState(false);
-    const [disabledEl, setDisabledEl] = useState(false);
     const cardRef = useRef(null)
 
     useEffect(() => {
@@ -28,7 +27,6 @@ const GameEl = () => {
 
         if (remainingTime===0) {
             clearInterval(timer);
-            setDisabledEl(true);
         }
 
         return () => clearInterval(timer)
@@ -111,7 +109,7 @@ const GameEl = () => {
             </div>
             <div className="form-styles">
                 <ConfigProvider>
-                    <Form onFinish={handleFormSubmit} disabled={disabledEl}>
+                    <Form onFinish={handleFormSubmit}>
                         <Form.Item>
                             <Space.Compact className='form-input'>
                                 <Input 

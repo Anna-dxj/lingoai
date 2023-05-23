@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button, ConfigProvider} from 'antd';
-import ChatInterfaceEl from '../../components/ChatInterfaceEl'
+import ConvoEl from '../../components/ConvoEl'
 import GameEl from '../../components/GameEl'
 import './style.css'
 
@@ -9,7 +9,7 @@ const PracticePage = () => {
         <div>
             {/* {Render if chose game} */}
             <GameEl /> 
-            <ChatInterfaceEl />
+            {/* <ConvoEl /> */}
         </div>
     )
 }

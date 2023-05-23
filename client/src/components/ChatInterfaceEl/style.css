@@ -5,3 +5,13 @@
     --dark-pastel: #41c745;
     --linen: #f9ebe0;
 }
+
+.chat-box-card {
+    background-color: var(--dark-gray);
+    color: white;
+    padding: 1.25rem;
+    margin: 1.25rem; 
+    border-radius:  1.25rem;
+    box-shadow: 3px 6px 27px 0px #0000007e;
+    transition: box-shadow 0.7s ease-in-out;
+}

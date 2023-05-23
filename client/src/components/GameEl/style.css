@@ -55,3 +55,28 @@
 .instructions:hover .list-item-main {
     color: var(--dark-pastel)
 }
+
+.red {
+    color: red;
+}
+
+.game-card {
+    background-color: var(--dark-gray);
+    color: white;
+    padding: 0.25rem 1.25rem;
+    margin: 1.25rem 1.25rem 4.5rem; 
+    border-radius:  1.25rem;
+    box-shadow: 3px 6px 27px 0px #0000007e;
+    transition: box-shadow 0.7s ease-in-out;
+}
+
+.form-styles {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.form-input {
+    width: 100%;
+}
