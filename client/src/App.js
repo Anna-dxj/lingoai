@@ -4,6 +4,7 @@ import {ApolloClient, ApolloProvider, InMemoryCache, createHttpLink} from '@apol
 import {setContext} from '@apollo/client/link/context'
 
 import Navbar from './components/Navbar'
+import PracticePage from './pages/PracticePage'
 import WrongPage from './pages/WrongPage'
 import LoginPage from './pages/LoginPage'
 
@@ -34,8 +35,8 @@ function App() {
         <Routes>
           {/* 
           <Route path='/notebook' element={<Notebook />} />
-          <Route path='/practice' element={<Practice />} 
-          */}
+        */}
+          <Route path='/practice' element={<PracticePage />}  />
           <Route path='/home' element={<WrongPage />} />
           <Route path="/login" element={<LoginPage />}/>
         </Routes>
