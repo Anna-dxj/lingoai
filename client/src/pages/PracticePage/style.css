@@ -5,3 +5,8 @@
     --dark-pastel: #41c745;
     --linen: #f9ebe0;
 }
+
+.page-title {
+    padding: 5%, 13%;
+    margin: 5%;   
+}

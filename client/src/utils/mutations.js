@@ -52,7 +52,7 @@ export const REMOVE_WORD = gql`
 // You can customize this based on your schema
 export const SEND_USER_INPUT = gql`
   mutation SendUserInput($input: String!) {
-    sendUserInput(input: $input) {
+    sendUserInput(input: $input) {\
       id
       message
     }
