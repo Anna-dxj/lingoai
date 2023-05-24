@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Select, Space, ConfigProvider, Row, Col} from 'antd'
 import GameEl from '../GameEl'
 import ConvoEl from '../ConvoEl'
@@ -6,11 +6,15 @@ import './style.css'
 
 
 const GameForm = ( {isGameForm, setIsGameForm} ) => {
+    const [showWordChain, setShowWordChain] = useState(false);
+    const [showConvo, setShowConvo] = useState(false);
     const handleWordChain = () => {
+        setShowWordChain(!showWordChain)
         setIsGameForm(!isGameForm);
     }
 
     const handleConvo = () => {
+        setShowConvo(!showConvo)
         setIsGameForm(!isGameForm);
     }
 
@@ -99,8 +103,38 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                     </Col>
                 </Row>
             ) : (
-                <GameEl /> ||
-                <ConvoEl />
+                <div>
+                    {showWordChain && (
+                        <div>
+                            <Row justify="space-between" align="center">
+                                <h2 className="page-title">Word Chain</h2>
+                                <ConfigProvider theme={{
+                                    token: {
+                                        colorPrimary: '#4da167',
+                                    },
+                                }}>
+                                    <Button className="btn" onClick={handleWordChain}>Return to Menu</Button>
+                                </ConfigProvider>
+                            </Row>
+                            <GameEl />
+                        </div>
+                    )}
+                    {showConvo && (
+                        <div>
+                            <Row justify="space-between" align="center">
+                                <h2 className="page-title">Practice Convo</h2>
+                                <ConfigProvider theme={{
+                                    token: {
+                                        colorPrimary: '#4da167',
+                                    },
+                                }}>
+                                    <Button className="btn" onClick={handleConvo}>Return to Menu</Button>
+                                </ConfigProvider>
+                            </Row>
+                            <ConvoEl />
+                        </div>
+                    )}
+                </div>
             )}
         </div>
     );

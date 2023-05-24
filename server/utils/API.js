@@ -14,10 +14,10 @@ async function callOpenAI(letter) {
     {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: 'You are a spanish tutor, who primarily speaks in Spanish, and if someone tries to speak in anything other than Spanish, you do not accept it.' },
         {
           role: 'user',
-          content: `Can you send me a one-word response in Spanish that starts with the letter ${letter}? Please don't provide the English translation`,
+          content: `Can you send me a word in Spanish that starts with the letter ${letter}? Please don't provide the English translation`,
         },
       ],
     },
@@ -43,7 +43,7 @@ async function callOpenAIChat(chat) {
     {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: 'You are a Spanish tutor, who primarily speaks in Spanish and only speaks in English when asked for a translation.' },
         {
           role: 'user',
           content: `${chat}`,

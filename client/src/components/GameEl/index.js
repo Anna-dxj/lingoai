@@ -212,7 +212,7 @@ const GameEl = () => {
                         <p className={showText ? '' : 'hidden'}>Send a word to start your game!</p>
                         <div>
                             {message.map(({id, content, sender})=>{
-                                return <ResponseEl key={id} content={content} sender={sender} />
+                                return <ResponseEl key={id} content={content} sender={sender} game='game'/>
                             })}
                         </div>
                     </div>

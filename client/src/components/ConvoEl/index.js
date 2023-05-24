@@ -1,23 +1,28 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Row, Col, Form, Input, Button, Space, ConfigProvider } from 'antd';
 import {SendOutlined} from '@ant-design/icons'
+import {useMutation} from '@apollo/client';
+import { SEND_USER_CHAT } from '../../utils/mutations';
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
-const GameEl = () => {
+const ConvoEl = () => {
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
-    const [remainingTime, setRemainingTime] = useState(301);
     const [showCard , setShowCard] = useState(false);
-    const cardRef = useRef(null)
+    const [sendUserChat, {error}] = useMutation(SEND_USER_CHAT)
+    // const cardRef = useRef(null)
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [message])
+    // useEffect(() => {
+    //     scrollToBottom();
+    // }, [message])
 
-    const scrollToBottom = () => {
-        window.scrollTo(0, document.body.scrollHeight)
-    }
+    // const scrollToBottom = () => {
+    //     window.scrollTo(0, document.body.scrollHeight)
+    // }
+
+    const {TextArea} = Input;
+
     const handleChange = (event) => {
         const {name, value} = event.target; 
 
@@ -26,23 +31,41 @@ const GameEl = () => {
             [name]: value,
         })
     }
-    const handleFormSubmit = () => {
+    const handleFormSubmit = async () => {
         if (!formState.input) {
             return;
         }
         const userInput = formState.input.trimEnd();
+        try {
+            const {data} = await sendUserChat({
+                variables: {chat: userInput}
+            });
 
-        const newMessage = {
-            id: message.length + 1,
-            content: userInput,
+            console.log(data)
+
+            if (data) {
+                const newMessage = {
+                    id: message.length + 1,
+                    content: userInput,
+                    sender: 'user'
+                }
+
+                const newAiMessage = {
+                    id: message.length+2,
+                    content: data.sendUserChat.message,
+                    sender: 'ai'
+                }
+                console.log(newMessage)
+                console.log([...message, newMessage, newAiMessage])
+                setMessage([...message, newMessage, newAiMessage])
+                setShowCard(true);
+                setFormState({input: ''})
+
+            }
+            
+        } catch (err) {
+            console.error(err)
         }
-
-        setMessage([...message, newMessage])
-        // LOGIC TODO:
-        // 1. send this input to api
-        console.log([...message, newMessage])
-        setShowCard(true);
-        setFormState({input: ''})
     }
     return (
         <div>
@@ -56,10 +79,10 @@ const GameEl = () => {
                     </div>
                 </Col>
             </Row>
-            <div className={showCard ? 'chat-card' : ''} ref={cardRef}>
+            <div className={showCard ? 'chat-card' : ''}>
                 <div>
-                    {message.map(({id, content})=>{
-                        return (<ResponseEl id={id} content={content}/>)
+                    {message.map(({id, content, sender})=>{
+                        return (<ResponseEl id={id} content={content} sender={sender} convo='convo'/>)
                     })}
                 </div>
                 <div>
@@ -75,7 +98,7 @@ const GameEl = () => {
                     <Form onFinish={handleFormSubmit}>
                         <Form.Item>
                             <Space.Compact className='form-input'>
-                                <Input 
+                                <TextArea 
                                     type="text"
                                     name="input"
                                     value={formState.input}
@@ -91,4 +114,4 @@ const GameEl = () => {
     )
 }
 
-export default GameEl;
+export default ConvoEl;

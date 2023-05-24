@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {Modal, ConfigProvider, Row} from 'antd'
 import './style.css'
 
-const ResponseEl = ({id, content, sender}) => {
+const ResponseEl = ({id, content, sender, game, convo}) => {
     const [openModal, setOpenModal] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const messageRef = useRef(null);
@@ -49,8 +49,11 @@ const ResponseEl = ({id, content, sender}) => {
                         <div className="ai-response">
                             <div className={showMessage ? '' : 'hidden'}>
                                 <p className="sender">LingoAI:</p>
-                                <p className='content ai-message'>
+                                <p className={game ? 'content ai-message' : 'hidden'}>
                                     <button onClick={handleTranslation}>{content}</button>
+                                </p>
+                                <p className={convo ? 'content ai-message' : 'hidden'}>
+                                    {content}
                                 </p>
                             </div>
                             <div className={showMessage ? 'hidden' : 'loading-container'}>

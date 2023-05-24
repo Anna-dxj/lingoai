@@ -34,14 +34,14 @@ const Navbar = () => {
                                 - controlItemBgActive - color when active*/}      
                             {
                                 Auth.loggedIn() ? (
-                                    <div>
+                                    <>
                                         <Menu.Item className="menu-item-custom">
                                             <Link to="/notebook" className="menu-link">Notebook</Link>
                                         </Menu.Item>
                                         <Menu.Item className='menu-item-custom'>
                                             <Link to='/' onClick={Auth.logout}>Logout</Link>
                                         </Menu.Item>
-                                    </div>
+                                    </>
                                 ) : (
                                     <Menu.Item className='menu-item-custom'>
                                         <Link to='/login'> Login</Link>
