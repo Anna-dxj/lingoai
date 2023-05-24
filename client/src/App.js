@@ -36,8 +36,8 @@ function App() {
           {/* 
           <Route path='/notebook' element={<Notebook />} />
         */}
-          <Route path='/practice' element={<PracticePage />}  />
-          <Route path='/home' element={<HomePage />} />
+          <Route path='/' element={<HomePage />}/>
+          <Route path='/practice' element={<PracticePage />}/>
           <Route path="/login" element={<LoginPage />}/>
         </Routes>
       </Router>
