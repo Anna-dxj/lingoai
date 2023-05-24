@@ -41,6 +41,7 @@ const typeDefs = gql`
     savedWord(original_text: String!, es: String!): User
     removeWord(wordId: ID!): User
     sendUserInput(input: String!): Response!
+    sendUserChat(chat: String!): Response!
   }
 `;
 
