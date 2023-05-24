@@ -81,12 +81,16 @@
     transition: box-shadow 0.7s ease-in-out;
 }
 
-.form-styles {
+.game-card-bottom {
+    padding-bottom: 1rem;
+}
+
+/* .form-styles {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-}
+} */
 
 .form-input {
     width: 100%;
