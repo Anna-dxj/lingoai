@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/project_atlas',
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/projectAtlas',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
