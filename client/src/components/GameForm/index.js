@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
-import {LockOutlined, MailOutlined} from '@ant-design/icons'
-import {Button, Form, Input, Select, Space} from 'antd'
+import React from 'react';
+import {Button, Form, Select, Space, ConfigProvider} from 'antd'
 import GameEl from '../GameEl'
 import ConvoEl from '../ConvoEl'
-import Auth from '../../utils/auth';
 import './style.css'
 
 
@@ -20,69 +17,76 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
     return (
         <div>
             {isGameForm ? (
-                <div>
-                    <Form
-                        className="login-form"
-                        layout="vertical"
-                        // onFinish={handleFormSubmit}
-                    >
-                        <Form.Item
-                            label="Language"
-                            name="language"
+                <div className="form-card">
+                    <ConfigProvider theme={{
+                        token: {
+                            colorPrimary: '#4da167'
+                        },
+                    }}>
+                        <Form
+                            className="login-form"
+                            layout="vertical"
+                            // onFinish={handleFormSubmit}
                         >
-                            <Space wrap>
-                                <Select 
-                                defaultValue="What language would you like to learn?"
-                                // style={{
-                                //     width: 500,
-                                // }}
-                                options=
-                                {[
-                                    {
-                                        value: 'Spanish',
-                                        label: 'Spanish',
-                                    },
-                                    {
-                                        value: 'French',
-                                        label: 'French',
-                                        disabled: true,
-                                    },
-                                    {
-                                        value: 'Italian',
-                                        label: 'Italian',
-                                        disabled: true,
-                                    },
-                                    ]}
+                            <Form.Item
+                                label="Language"
                                 name="language"
-                                // value={formState.language}
-                                // onChange={handleChange}
-                                />
-                            </Space>
-                        </Form.Item>
-                        {/* Commented out to add to Practice Convo Component */}
-                        {/* <Form.Item
-                            label="Topic"
-                            name="topic"
-                        >
-                            <Input 
-                                type="text"
-                                placeholder="What topic would you like to discuss?"
+                            >
+                                <Space wrap>
+                                    <Select 
+                                    className="card-text"
+                                    defaultValue="What language would you like to learn?"
+                                    // style={{
+                                    //     width: 500,
+                                    // }}
+                                    options=
+                                    {[
+                                        {
+                                            value: 'Spanish',
+                                            label: 'Spanish',
+                                        },
+                                        {
+                                            value: 'French',
+                                            label: 'French',
+                                            disabled: true,
+                                        },
+                                        {
+                                            value: 'Italian',
+                                            label: 'Italian',
+                                            disabled: true,
+                                        },
+                                        ]}
+                                    name="language"
+                                    // value={formState.language}
+                                    // onChange={handleChange}
+                                    />
+                                </Space>
+                            </Form.Item>
+                            {/* Commented out to add to Practice Convo Component */}
+                            {/* <Form.Item
+                                label="Topic"
                                 name="topic"
-                                // value={formState.topic}
-                                // onChange={handleChange}
-                            />
-                        </Form.Item> */}
-                        <Form.Item>
-                            <Button type="primary" className="login-form-button" htmlType='submit' onClick={handleWordChain}>
-                                Play WordChain
-                            </Button>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" className="login-form-button" htmlType='submit' onClick={handleConvo}>
-                                Practice Conversation
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                            >
+                                <Input 
+                                    type="text"
+                                    placeholder="What topic would you like to discuss?"
+                                    name="topic"
+                                    // value={formState.topic}
+                                    // onChange={handleChange}
+                                />
+                            </Form.Item> */}
+                            <Form.Item>
+                                <Button type="primary" className="login-form-button" htmlType='submit' onClick={handleWordChain}>
+                                    Play WordChain
+                                </Button>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" className="login-form-button" htmlType='submit' onClick={handleConvo}>
+                                    Practice Conversation
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </ConfigProvider>
                 </div>
             ) : (
                 <GameEl /> ||

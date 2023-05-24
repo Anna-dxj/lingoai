@@ -10,14 +10,14 @@ const Navbar = () => {
     return (
         <nav>
             <Row align="middle">
-                <Col sm={14}>
+                <Col sm={19}>
                     <h1 className="title">
                         <Link to="/" className="home-link">
                             LingoAI
                         </Link>
                     </h1>
                 </Col>
-                <Col sm={10}>
+                <Col sm={5}>
                     <ConfigProvider theme={{
                         token: {
                             colorPrimary: '#3BC14A',
