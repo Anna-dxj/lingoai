@@ -108,16 +108,17 @@ const GameEl = () => {
             const {data} = await sendUserInput({
                 variables: {input: userInput},
             });
-            console.log('data', data)
             const newMessage = {
                 id: message.length + 1,
                 content: userInput,
                 sender: 'user',
             }
 
+            const aiContent = data.sendUserInput.message.slice(0, -1)
+
             const newAiMessage = {
                 id: message.length+2,
-                content: data.sendUserInput.message,
+                content: aiContent,
                 sender: 'ai',
             }
             
@@ -125,7 +126,7 @@ const GameEl = () => {
                 const userFirstLetter = userInput.split('')[0]
                 const aiResArr = [...message, newMessage, newAiMessage]
                 const aiArr = aiResArr[aiResArr.length-3].content.split('')
-                const aiLastLetter = aiArr[aiArr.length-2]
+                const aiLastLetter = aiArr[aiArr.length-1]
                 if (userFirstLetter !== aiLastLetter) {
                     setShowInvalidPlay(true);
                     return;
