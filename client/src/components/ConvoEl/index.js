@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Row, Col, Form, Input, Button, Space, ConfigProvider } from 'antd';
 import {SendOutlined} from '@ant-design/icons'
-import UserResponse from '../UserResponse'
-// import AiResponse from '../AiResponse'
+import ResponseEl from '../ResponseEl'
 import './style.css'
 
 const GameEl = () => {
@@ -60,7 +59,7 @@ const GameEl = () => {
             <div className={showCard ? 'chat-card' : ''} ref={cardRef}>
                 <div>
                     {message.map(({id, content})=>{
-                        return (<UserResponse id={id} content={content}/>)
+                        return (<ResponseEl id={id} content={content}/>)
                     })}
                 </div>
                 <div>
