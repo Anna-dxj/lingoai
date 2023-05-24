@@ -4,7 +4,6 @@ import {SendOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/client'
 import {SEND_USER_INPUT} from '../../utils/mutations'
 import ResponseEl from '../ResponseEl'
-// import AiResponse from '../AiResponse'
 import './style.css'
 
 const GameEl = () => {
@@ -19,6 +18,7 @@ const GameEl = () => {
     const [showInvalidSubmission, setShowInvalidSubmission] = useState(false);
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
+    
     const cardRef = useRef(null)
 
     const [sendUserInput, {error}] = useMutation(SEND_USER_INPUT);
