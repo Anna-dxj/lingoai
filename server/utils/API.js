@@ -18,7 +18,7 @@ async function callOpenAI(letter) {
         {
           role: 'user',
           content:
-            'Can you send me a word in Spanish that starts with the letter G?',
+            `Can you send me a one-word response in Spanish that starts with the letter ${letter}? Plese don't provide the translation.`,
         },
       ],
     },

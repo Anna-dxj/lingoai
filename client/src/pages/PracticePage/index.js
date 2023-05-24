@@ -7,7 +7,11 @@ import './style.css'
 const PracticePage = () => {
     return (
         <div>
-            <h2 className="page-title">Practice</h2>
+            <Row>
+                <Col lg={{offset: 3}}>
+                    <h2 className="page-title">Practice</h2>
+                </Col>
+            </Row>
             {/* {Render if chose game} */}
             <GameEl /> 
             {/* <ConvoEl /> */}
