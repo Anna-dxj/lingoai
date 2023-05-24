@@ -12,7 +12,7 @@ const Navbar = () => {
             <Row align="middle">
                 <Col sm={14}>
                     <h1 className="title">
-                        <Link to="/home" className="home-link">
+                        <Link to="/" className="home-link">
                             LingoAI
                         </Link>
                     </h1>
@@ -49,7 +49,7 @@ const Navbar = () => {
                             {
                                 Auth.loggedIn() ? (
                                     <Menu.Item className='menu-item-custom'>
-                                        <Link to='/home' onClick={Auth.logout}>Logout</Link>
+                                        <Link to='/' onClick={Auth.logout}>Logout</Link>
                                     </Menu.Item>
                                 ) : (
                                     <Menu.Item className='menu-item-custom'>
