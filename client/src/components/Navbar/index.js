@@ -31,26 +31,17 @@ const Navbar = () => {
                             {/* For "custom" styling: 
                                 - colorGbContainer (string) -> fill background color  
                                 - colorTextDisabled - color of text in disabled state
-                                - controlItemBgActive - color when active*/}
-                            
-                            <Menu.Item className="menu-item-custom">
-                                <Link to="/notebook" className="menu-link">Notebook</Link>
-                            </Menu.Item>
-                            {/* <Menu.Item className="custom-menu-item">
-                                <Link to="/wordchain">Play WordChain</Link>
-                            </Menu.Item>
-                            <Menu.Item className="custom-menu-item">
-                                <Link to='/practicechat'>Practice Conversation</Link>
-                            </Menu.Item> */}
-                            {/* */}
-                            <Menu.Item className="menu-item-custom">
-                                <Link to="/practice" className="menu-link">Practice</Link>
-                            </Menu.Item>
+                                - controlItemBgActive - color when active*/}      
                             {
                                 Auth.loggedIn() ? (
-                                    <Menu.Item className='menu-item-custom'>
-                                        <Link to='/' onClick={Auth.logout}>Logout</Link>
-                                    </Menu.Item>
+                                    <div>
+                                        <Menu.Item className="menu-item-custom">
+                                            <Link to="/notebook" className="menu-link">Notebook</Link>
+                                        </Menu.Item>
+                                        <Menu.Item className='menu-item-custom'>
+                                            <Link to='/' onClick={Auth.logout}>Logout</Link>
+                                        </Menu.Item>
+                                    </div>
                                 ) : (
                                     <Menu.Item className='menu-item-custom'>
                                         <Link to='/login'> Login</Link>
