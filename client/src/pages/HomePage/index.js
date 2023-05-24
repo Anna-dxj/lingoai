@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import GameForm from '../../components/GameForm';
 import './style.css';
-
 const HomePage = () => {
     const [isGameForm, setIsGameForm] = useState(true)
 
@@ -28,3 +27,4 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
