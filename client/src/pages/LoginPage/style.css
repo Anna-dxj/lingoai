@@ -1,0 +1,35 @@
+:root {
+    --dark-gray: #4d5057;
+    --dark-green: #4e6e5d;
+    --shamrock: #4da167;
+    --dark-pastel: #41c745;
+    --linen: #f9ebe0;
+}
+
+.page-title {
+    padding: 5%, 13%;
+    margin: 5%;
+}
+
+.form-card {
+    padding: 5%, 13%;
+    margin: 5%;
+}
+
+.login-form-button {
+    width: 100%
+}
+
+.signup-btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+    transition: color 0.3s ease-in-out;
+
+}
+
+.signup-btn:hover {
+    color: var(--shamrock);
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+}

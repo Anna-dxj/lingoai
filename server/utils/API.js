@@ -17,8 +17,7 @@ async function callOpenAI(letter) {
         { role: 'system', content: 'You are a helpful assistant.' },
         {
           role: 'user',
-          content:
-            'Can you send me a word in Spanish that starts with the letter G?',
+          content: `Can you send me a word in Spanish that starts with the letter ${letter}?`,
         },
       ],
     },
@@ -67,6 +66,33 @@ async function callOpenAIChat(chat) {
   return obj;
 }
 
+async function callTranslateAPI(word) {
+  const encodedParams = new URLSearchParams();
+  encodedParams.set('text', `${word}`);
+  encodedParams.set('to', 'en');
+  encodedParams.set('from', 'es');
+
+  const options = {
+    method: 'POST',
+    url: 'https://nlp-translation.p.rapidapi.com/v1/translate',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      'X-RapidAPI-Key': `${process.env.API_KEY_NLP}`,
+      'X-RapidAPI-Host': 'nlp-translation.p.rapidapi.com',
+    },
+    data: encodedParams,
+  };
+
+  try {
+    const response = await axios.request(options);
+    // console.log(response);
+    const translation = response;
+    return translation;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // })
 // .catch((err) => {
 //   console.log(process.env.API_KEY);
@@ -92,4 +118,4 @@ async function callOpenAIChat(chat) {
 //   console.log(data);
 //   return data;
 
-module.exports = { callOpenAI, callOpenAIChat };
+module.exports = { callOpenAI, callOpenAIChat, callTranslateAPI };

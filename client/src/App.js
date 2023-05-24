@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {ApolloClient, ApolloProvider, InMemoryCache, createHttpLink} from '@apollo/client'
+import {setContext} from '@apollo/client/link/context'
+
+import Navbar from './components/Navbar'
+import PracticePage from './pages/PracticePage'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+
+const httpLink = createHttpLink({
+  uri: '/graphql'
+});
+
+const authLink = setContext ((parent, {headers}) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    }
+  }
+})
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <Navbar />
+        <Routes>
+          {/* 
+          <Route path='/notebook' element={<Notebook />} />
+        */}
+          <Route path='/practice' element={<PracticePage />}  />
+          <Route path='/home' element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />}/>
+        </Routes>
+      </Router>
+    </ApolloProvider>
   );
 }
 

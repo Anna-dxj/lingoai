@@ -1,8 +1,9 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
-const { callOpenAI } = require('../utils/API')
-const { callOpenAIChat } = require('../utils/API')
+const { callOpenAI } = require('../utils/API');
+const { callOpenAIChat } = require('../utils/API');
+const { callTranslateAPI } = require('../utils/API');
 
 const resolvers = {
   Query: {
@@ -33,9 +34,9 @@ const resolvers = {
         throw new AuthenticationError('Incorrect credentials');
       }
 
-      const token = signToken(user);
+      // const token = signToken(user);
 
-      return { token, user };
+      return { /*token,*/ user };
     },
     savedWord: async (parent, { newWord }, context) => {
       if (context.user) {
@@ -68,12 +69,17 @@ const resolvers = {
       };
     },
     sendUserChat: async (_, { chat }) => {
-        const response = await callOpenAIChat(chat);
-        return {
-          id: response.id,
-          message: response.message,
-        };
-      },
+      const response = await callOpenAIChat(chat);
+      return {
+        id: response.id,
+        message: response.message,
+      };
+    },
+    sendTranslation: async (_, { word }) => {
+      const response = await callTranslateAPI(word);
+      console.log(response.data);
+      return response.data;
+    },
   },
 };
 

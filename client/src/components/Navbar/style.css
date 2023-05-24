@@ -1,0 +1,29 @@
+:root {
+    --dark-gray: #4d5057;
+    --dark-green: #4e6e5d;
+    --shamrock: #4da167;
+    --dark-pastel: #41c745;
+    --linen: #f9ebe0;
+}
+
+nav {
+    background-color: var(--dark-gray);
+}
+
+
+.title {
+    padding: 5%, 13%;
+    margin: 5%;
+}
+
+.home-link {
+    color: white;
+}
+
+.home-link:hover {
+    color: var(--dark-pastel);
+}
+
+.menu-item-custom {
+    color: white;
+}
