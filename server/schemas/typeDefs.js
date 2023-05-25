@@ -12,13 +12,13 @@ const typeDefs = gql`
   type Word {
     _id: ID
     original_text: String!
-    es: String!
+    en: String
   }
 
   input wordInput {
     _id: ID
     original_text: String!
-    es: String!
+    en: String!
   }
 
   type Query {
@@ -46,7 +46,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    savedWord(original_text: String!, es: String!): User
+    savedWord(original_text: String!, en: String!): User
     removeWord(wordId: ID!): User
     sendUserInput(input: String!): Response!
     sendUserChat(chat: String!): Response!

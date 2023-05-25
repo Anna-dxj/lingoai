@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, Space, ConfigProvider, Modal } from 'antd';
-import {SendOutlined} from '@ant-design/icons'
-import {useMutation} from '@apollo/client'
-import {SEND_USER_INPUT} from '../../utils/mutations'
+import { SendOutlined } from '@ant-design/icons'
+import { useMutation } from '@apollo/client'
+import { SEND_USER_INPUT } from '../../utils/mutations'
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
@@ -19,6 +19,8 @@ const GameEl = () => {
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
     const [showInvalidRepeat, setShowInvalidRepeat] = useState(false);
+    const [showRepeatedResponse, setShowRepeatedResponse] = useState('')
+    const [showWin, setShowWin] = useState(false);
     // const cardRef = useRef(null)
     const [sendUserInput, {error}] = useMutation(SEND_USER_INPUT);
     // useEffect(() => {
@@ -139,6 +141,12 @@ const GameEl = () => {
                             setShowInvalidRepeat(true);
                             return;
                         }
+                        if (aiContent === msg.content) {
+                            setShowRepeatedResponse(aiContent);
+                            setShowWin(true);
+                            setActiveTimer(false);
+                            return;
+                        }
                     }     
                 }
                 setMessage([...message, newMessage, newAiMessage])
@@ -247,7 +255,7 @@ const GameEl = () => {
                 <Modal
                     title="Game Over!"
                     okText="Yes"
-                    closable="false"
+                    closable={false}
                     centered
                     cancelText="No"
                     open={showModal}
@@ -334,6 +342,27 @@ const GameEl = () => {
                     No repeating words. Players cannot use a word that has already been played in the current game.
 
                </Modal>
+            </ConfigProvider>
+            <ConfigProvider theme={{
+                token: {
+                    colorPrimary: '#41c745'
+                }
+            }}>
+                <Modal
+                    title="YOU WIN!"
+                    centered
+                    open={showWin}
+                    footer={[
+                        <Button type="primary" onClick={handleReplayGame}>
+                            Play again
+                        </Button>
+                    ]}
+                >
+                    <p>LingoAI sent a repeated word ({showRepeatedResponse})</p>
+                    {/* Remaining time show seconds ==> min:sec  */}
+                    {/* also the button doesn't work */}
+                    <p>You win with {remainingTime} remaining!</p>
+                </Modal>
             </ConfigProvider>
         </div>
     )

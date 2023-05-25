@@ -5,14 +5,10 @@ const wordSchema = new Schema({
     type: String,
     required: true,
   },
-  translated_text: [
-    {
-      es: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  en: {
+    type: String,
+    required: true,
+  },
 });
 
 // const Word = model('Word', wordSchema);

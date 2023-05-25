@@ -1,11 +1,22 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Modal, ConfigProvider, Row} from 'antd'
+import React, { useState, useEffect, useRef } from 'react';
+import { Modal, ConfigProvider, Row, Button } from 'antd'
+import { useMutation, useQuery } from '@apollo/client';
+import Auth from '../../utils/auth'
+import { SEND_TRANSLATION, SAVED_WORD} from '../../utils/mutations';
+import { QUERY_ME } from '../../utils/queries';
 import './style.css'
 
 const ResponseEl = ({id, content, sender, game, convo}) => {
     const [openModal, setOpenModal] = useState(false);
+    const [noSave, setNoSave] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+    const [translatedText, setTranslatedText] = useState('')
+    const [loadingDiv, setLoadingDiv] = useState(true);
     const messageRef = useRef(null);
+
+    const [sendTranslation, {error: translationError}] = useMutation(SEND_TRANSLATION);
+    const [savedWord, {error: saveWordError}] = useMutation(SAVED_WORD);
+    const {loading, data} = useQuery(QUERY_ME);
     
     useEffect(() => {
         if (sender==='ai') {
@@ -21,18 +32,65 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
         messageRef.current.scrollIntoView({behavior: 'smooth'})
     }, [])
 
-    const handleSave = () => {
-        // SAVE DATA TO USER
+    const handleSave = async () => {
         setOpenModal(false);
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        
+        if (!token) {
+            return false; 
+        }
+        
+        console.log(data);
+        
+        for (const word of data.me.savedWords) {
+            // console.log('ogtext', word.original_text);
+            // console.log('content', content);
+            if (word.original_text === content) {
+                // console.log('why she no work')
+                setNoSave(true);
+                return;
+            }
+        }
+    
+        const saveTranslation = async () => {
+            try {
+                const {data} = await savedWord({
+                    variables: {
+                        original_text: content,
+                        en: translatedText,
+                    }
+                })
+                console.log('update', data)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+        saveTranslation();
+
     }
 
-    const handleTranslation = () => {
-        console.log('works')
+    const handleTranslation = async () => {
+        //setTranslatedText & translatedText
         setOpenModal(true);
+        const translateWord = content.trim();
+        const {data} = await sendTranslation({
+            variables: {
+                word: translateWord,
+            }
+        })
+        if (data) {
+            setLoadingDiv(false);
+        }
+        setTranslatedText(data.sendTranslation.translated_text.en)
     }
 
     const handleCloseModal = () => {
         setOpenModal(false);
+    }
+
+    const handleCloseNotSave = () => {
+        setNoSave(false);
     }
     return (
         <div ref={messageRef}>
@@ -80,12 +138,38 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
                         <Modal
                             title={content}
                             open={openModal}
+                            centered
+                            closable={false}
                             onOk={handleSave}
                             okText="Save"
                             onCancel={handleCloseModal}
                         >
-                            <p>Spanish: {content}</p>
-                            <p>English: TRANSLATION</p>
+                            <div className={loadingDiv ? 'hidden' : ''}>
+                                <p>Spanish: {content}</p>
+                                <p>English: {translatedText}</p>
+                            </div>
+                            <div className={loadingDiv ? '' : 'hidden'}>
+                                loading
+                            </div>
+                        </Modal>
+                    </ConfigProvider>
+                    <ConfigProvider theme = {{
+                        token: {
+                            colorPrimary: '#3BC14A',
+                        }
+                    }}>
+                        <Modal
+                            title="Already Saved!"
+                            open={noSave}
+                            centered
+                            closable={false}
+                            footer={[
+                                <Button onClick={handleCloseNotSave}>Ok</Button>
+                            ]}
+                        >
+                            <div>
+                                <p>You already saved {content} to your Notebook!</p>
+                            </div>
                         </Modal>
                     </ConfigProvider>
                 </div>

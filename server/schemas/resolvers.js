@@ -16,35 +16,39 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      // const token = signToken(user);
-      return { /*token,*/ user };
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+
+      return { token, user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
+      // check if user exists with email and credentials
       if (!user) {
-        throw new AuthenticationError('No user found with this email address');
+        throw new AuthenticationError('Incorrect credentials.');
+      }
+      const correctPassword = await user.isCorrectPassword(password);
+
+      // check password
+      if (!correctPassword) {
+        throw new AuthenticationError('Incorrect credentials.');
       }
 
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
-      }
-
-      // const token = signToken(user);
-
-      return { /*token,*/ user };
+      const token = signToken(user);
+      return { token, user };
     },
-    savedWord: async (parent, { newWord }, context) => {
+    savedWord: async (parent, { original_text, en }, context) => {
+      console.log('test')
+      console.log('og text', original_text)
+      console.log('en', en)
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedWords: newWord } },
+          { $addToSet: { savedWords: {original_text, en} } },
           { new: true, runValidators: true }
         );
+        console.log(updateUser)
         return updateUser;
       }
       throw new AuthenticationError('You need to be logged in!');
