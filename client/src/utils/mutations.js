@@ -11,7 +11,6 @@ export const LOGIN_USER = gql`
   }
 `;
 
-
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
@@ -24,12 +23,12 @@ export const ADD_USER = gql`
 `;
 
 export const SAVED_WORD = gql`
-  mutation savedWord($wordId: ID!, $original_text: String!, $es: String!) {
-    savedWord(wordId: $wordId, original_text: $original_text, es: $es) {
+  mutation savedWord($wordId: ID!, $original_text: String!, $en: String!) {
+    savedWord(wordId: $wordId, original_text: $original_text, en: $en) {
       _id
       original_text
       translated_text {
-        es
+        en
       }
     }
   }
@@ -44,7 +43,6 @@ export const REMOVE_WORD = gql`
     }
   }
 `;
-
 
 //client mutation for ChatGPT Word Game
 export const SEND_USER_INPUT = gql`
