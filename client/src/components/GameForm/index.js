@@ -38,7 +38,7 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                     layout="vertical"
                                     // onFinish={handleFormSubmit}
                                 >
-                                    <Form.Item
+                                    {/* <Form.Item
                                         label="Language"
                                         name="language"
                                     >
@@ -71,7 +71,7 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                             // onChange={handleChange}
                                             />
                                         </Space>
-                                    </Form.Item>
+                                    </Form.Item> */}
                                     {/* Commented out to add to Practice Convo Component */}
                                     {/* <Form.Item
                                         label="Topic"

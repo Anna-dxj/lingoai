@@ -30,22 +30,23 @@ const NotebookPage = () => {
     return <div>Error fetching data</div>;
   }
 
-  const user = data?.user;
+  const user = data?.me;
+  // console.log(data.me);
 
   return (
     <div>
       {user ? (
         <div>
           <h2>Your Saved Words</h2>
-          {user.words.map(({ _id, original_text, en }) => (
+          {user.savedWords.map(({ _id, original_text, en }) => (
             <div key={_id}>
               <Row align="middle" justify="space-between">
                 <Col sm={24}>
                   <div className="instructions">
                     <h3 className="rules-title">
-                      Saved Word in Spanish: {original_text}
+                      Spanish: {original_text}
                     </h3>
-                    <div className="prompt">English Translation: {en}</div>
+                    <div className="prompt">English: {en}</div>
                     {/* <Button type="primary" className="button" htmlType='submit'>
                       Edit
                     </Button> */}
@@ -58,7 +59,11 @@ const NotebookPage = () => {
             </div>
           ))}
         </div>
-      ) : null}
+      ) : (
+        <div>
+          error!
+        </div>
+      )}
     </div>
   );
 };

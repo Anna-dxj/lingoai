@@ -97,7 +97,7 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
             { sender === 'user' ? (
                 <div key={id}>
                     <div className="user-response">
-                        <p className="sender">You:</p>
+                        <p className="sender">{data.me.username}:</p>
                         <p className="content user-message">{content}</p>
                     </div>
                 </div>
