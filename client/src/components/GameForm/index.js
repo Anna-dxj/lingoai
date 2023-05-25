@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
-import {LockOutlined, MailOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Select, Space} from 'antd'
 import GameEl from '../GameEl'
 import ConvoEl from '../ConvoEl'
-import Auth from '../../utils/auth';
 import './style.css'
 
 
 const GameForm = ( {isGameForm, setIsGameForm} ) => {
+    const [language, setLanguage] = useState("Choose your language")
+    const [selectedOption, setSelectedOption] = useState(null);
+    
     const handleWordChain = () => {
+        setSelectedOption('wordChain');
         setIsGameForm(!isGameForm);
     }
 
     const handleConvo = () => {
+        setSelectedOption('convo');
         setIsGameForm(!isGameForm);
+    }
+
+    const handleChange = (value) => {
+        setLanguage(value);
     }
 
     return (
@@ -54,8 +60,8 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                     },
                                     ]}
                                 name="language"
-                                // value={formState.language}
-                                // onChange={handleChange}
+                                value={language}
+                                onChange={handleChange}
                                 />
                             </Space>
                         </Form.Item>
@@ -85,45 +91,13 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                     </Form>
                 </div>
             ) : (
-                <GameEl /> ||
-                <ConvoEl />
+                <div>
+                    {selectedOption === 'wordChain' ? <GameEl /> : null}
+                    {selectedOption === 'convo' ? <ConvoEl /> : null}
+                </div>
             )}
         </div>
     );
 }
-// Commented out potentially irrelevant code below, but keeping for reference
 
-//     const [formState, setFormState] = useState({ language: '', topic: '' });
-  
-//     // update state based on form input changes
-//     const handleChange = (event) => {
-//       const { language, value } = event.target;
-  
-//       setFormState({
-//         ...formState,
-//         [language]: value,
-//       });
-//     };
-  
-    // submit form
-    // const handleFormSubmit = async () => {
-    // // Doesn't take event
-    //   try {
-    //     const { data } = await login({
-    //         variables: { 
-    //             ...formState
-    //         },
-    //     });
-  
-    //     Auth.login(data.login.token);
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-  
-    //   // clear form values
-    //   setFormState({
-    //     language: '',
-    //     topic: '',
-    //   });
-    // };
 export default GameForm
