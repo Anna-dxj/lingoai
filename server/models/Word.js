@@ -7,7 +7,7 @@ const wordSchema = new Schema({
   },
   translated_text: [
     {
-      es: {
+      en: {
         type: String,
         required: true,
       },
