@@ -175,14 +175,6 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
                 </div>
             )}
         </div>
-        // <Row>
-        //     <div className={sender==='user' ? 'flex-start' : 'flex-end'}>
-        //         <div key={id} className={sender === 'user' ? 'user-response' : 'ai-response'}>
-        //             <p className="sender">{sender === 'user' ? 'User: ' : 'LingoAI: '}</p> 
-        //             <p className="content">{content}</p>
-        //         </div>
-        //     </div>
-        // </Row>
     )
 }
 

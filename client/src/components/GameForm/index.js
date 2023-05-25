@@ -55,9 +55,6 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
         setShowReplay(false);
     }
 
-    // const handleChange = (value) => {
-    //     setLanguage(value);
-    // }
 
     return (
         <div>

@@ -15,7 +15,6 @@ const ConvoEl = ({showForm, setShowForm, clearChat, setClearChat}) => {
     const [promptTxt, setPromptTxt] = useState('')
     const [promptFormState, setShowPromptFormState] = useState([])
 
-    const {TextArea} = Input;
 
     useEffect(() => {
         if (clearChat) {
@@ -131,7 +130,7 @@ const ConvoEl = ({showForm, setShowForm, clearChat, setClearChat}) => {
                     <Form onFinish={handleFormSubmit}>
                         <Form.Item>
                             <Space.Compact className='form-input'>
-                                <TextArea 
+                                <Input 
                                     type="text"
                                     name="input"
                                     value={formState.input}
@@ -158,7 +157,6 @@ const ConvoEl = ({showForm, setShowForm, clearChat, setClearChat}) => {
                             <Form>
                                 <Form.Item
                                     name="input"
-                                    // label="select"
                                     rules={[{required: true, message: 'Please select a prompt!'}]}
                                 >
                                     <Select 

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { Row, Col, Form, Input, Button, Space, ConfigProvider, Modal } from 'antd';
 import { SendOutlined } from '@ant-design/icons'
 import { useMutation } from '@apollo/client'
 import { SEND_USER_INPUT } from '../../utils/mutations'
-import Auth from '../../utils/auth'
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
@@ -12,11 +10,9 @@ const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showIns
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
     const [remainingTime, setRemainingTime] = useState(301);
-    // const [activeTimer, setActiveTimer] = useState(false);
     const [showText , setShowText] = useState(true);
     const [disabledEl, setDisabledEl] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    // const [showReplay, setShowReplay] = useState(false);
     const [showInvalidSubmission, setShowInvalidSubmission] = useState(false);
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
@@ -25,12 +21,6 @@ const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showIns
     const [showWin, setShowWin] = useState(false);
 
     const [sendUserInput, {error}] = useMutation(SEND_USER_INPUT);
-
-    // const isAuthenticated = Auth.loggedIn();
-
-    // if (!isAuthenticated) {
-    //     return <Redirect to="/login" />
-    // };
 
     useEffect(() => {
         let timer;
@@ -94,7 +84,7 @@ const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showIns
         }
 
         try {
-            //Add WordReference API?
+            //Future Development: Add dictionary API
             // const isValidWord = checkIsWord(userInput);
 
             // if (!isValidWord) {
@@ -188,7 +178,6 @@ const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showIns
             </Row>
             <Row justify="center">
                 <div className="">
-                    {/* If time, make sticky */}
                     <div className="timer-div">
                         <h4>Remaining Time: {
                                 remainingTime <= 300 ? (
@@ -354,8 +343,6 @@ const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showIns
                     onCancel={handleCloseWinModal}
                 >
                     <p>LingoAI sent a repeated word ({showRepeatedResponse})</p>
-                    {/* Remaining time show seconds ==> min:sec  */}
-                    {/* also the button doesn't work */}
                     <p>You win with {formatTimer(remainingTime)} remaining!</p>
                 </Modal>
             </ConfigProvider>
