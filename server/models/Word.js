@@ -11,6 +11,4 @@ const wordSchema = new Schema({
   },
 });
 
-// const Word = model('Word', wordSchema);
-
 module.exports = wordSchema;

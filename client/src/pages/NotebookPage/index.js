@@ -1,26 +1,49 @@
-import React from 'react';
-import { Row, Col, Spin } from 'antd'
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Spin, Button } from 'antd';
 import './style.css';
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { REMOVE_WORD } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const NotebookPage = () => {
-  const { data, loading, error  } = useQuery(QUERY_ME);
+  const { data, loading, error, refetch } = useQuery(QUERY_ME);
+  const [deleteWord, { error: deleteError, data: deleteData }] =
+    useMutation(REMOVE_WORD);
+  const [savedWords, setSavedWords] = useState([]);
 
-  // let user;
-  // if (Auth.loggedIn()) {
-  //   user = data.user;
-  // }
+  const handleDelete = (event, wordId) => {
+    event.preventDefault();
 
-  if (!Auth.loggedIn()) {
-    return (
-      <h4>
-        You need to be logged in to see your notebook. Use the navigation link
-        above to log in!
-      </h4>
-    );
-  }
+    if (!Auth.loggedIn()) {
+      return (
+        <h4 className="warning">
+          You need to be logged in to see your notebook. Use the navigation link
+          above to log in!
+        </h4>
+      );
+    }
+
+    deleteWord({ variables: { wordId } })
+      .then(() => {
+        // Handle successful deletion
+        setSavedWords((prevWords) =>
+          prevWords.filter((word) => word._id !== wordId)
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error
+      });
+  };
+
+  useEffect(() => {
+    if (deleteData) {
+      // If deleteData exists, it means a deletion has occurred, so we refetch QUERY_ME
+      refetch();
+    }
+  }, [deleteData, refetch]);
 
   if (loading) {
     return <Spin size="large" />;
@@ -30,36 +53,38 @@ const NotebookPage = () => {
     return <div>Error fetching data</div>;
   }
 
-  const user = data?.user;
+  const user = data?.me;
 
   return (
     <div>
       {user ? (
         <div>
           <h2>Your Saved Words</h2>
-          {user.words.map(({ _id, original_text, en }) => (
+          {user.savedWords.map(({ _id, original_text, en }) => (
             <div key={_id}>
               <Row align="middle" justify="space-between">
                 <Col sm={24}>
                   <div className="instructions">
-                    <h3 className="rules-title">
-                      Saved Word in Spanish: {original_text}
-                    </h3>
-                    <div className="prompt">English Translation: {en}</div>
-                    {/* <Button type="primary" className="button" htmlType='submit'>
-                      Edit
-                    </Button> */}
-                    {/* <Button type="primary" className="button" htmlType='submit'>
+                    <h3 className="rules-title">Spanish: {original_text}</h3>
+                    <div className="prompt">English: {en}</div>
+                    <Button
+                      type="primary"
+                      className="button"
+                      onClick={(event) => handleDelete(event, _id)}
+                    >
                       Remove
-                    </Button> */}
+                    </Button>
                   </div>
                 </Col>
               </Row>
             </div>
           ))}
         </div>
-      ) : null}
+      ) : (
+        <div>error!</div>
+      )}
     </div>
   );
 };
+
 export default NotebookPage;
