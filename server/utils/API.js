@@ -1,8 +1,3 @@
-// const {
-//   Configuration,
-//   OpenAIApi,
-//   CreateChatCompletionRequest,
-// } = require('openai');
 const dotenv = require('dotenv');
 const axios = require('axios');
 
@@ -17,8 +12,7 @@ async function callOpenAI(letter) {
         { role: 'system', content: 'You are a helpful assistant.' },
         {
           role: 'user',
-          content:
-            `Can you send me a one-word response in Spanish that starts with the letter ${letter}? Plese don't provide the translation.`,
+          content: `Can you send me a word in Spanish that starts with the letter ${letter}?`,
         },
       ],
     },
@@ -67,29 +61,31 @@ async function callOpenAIChat(chat) {
   return obj;
 }
 
-// })
-// .catch((err) => {
-//   console.log(process.env.API_KEY);
-// });
-//   const response = await axios('https://api.openapi.com/v1/chat/completions', {
-//     method: 'POST',
-//     headers: {
-//       Authorization: `Bearer ${process.env.API_KEY}`,
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       model: 'gpt-3.5-turbo',
-//       messages: [
-//         { role: 'system', content: 'You are a helpful assistant.' },
-//         {
-//           role: 'user',
-//           content: `Can you send me a word in Spanish that starts with the letter ${letter}?`,
-//         },
-//       ],
-//     }),
-//   });
-//   const data = await response.json();
-//   console.log(data);
-//   return data;
+async function callTranslateAPI(word) {
+  const encodedParams = new URLSearchParams();
+  encodedParams.set('text', `${word}`);
+  encodedParams.set('to', 'en');
+  encodedParams.set('from', 'es');
 
-module.exports = { callOpenAI, callOpenAIChat };
+  const options = {
+    method: 'POST',
+    url: 'https://nlp-translation.p.rapidapi.com/v1/translate',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      'X-RapidAPI-Key': `${process.env.API_KEY_NLP}`,
+      'X-RapidAPI-Host': 'nlp-translation.p.rapidapi.com',
+    },
+    data: encodedParams,
+  };
+
+  try {
+    const response = await axios.request(options);
+    // console.log(response);
+    const translation = response;
+    return translation;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = { callOpenAI, callOpenAIChat, callTranslateAPI };

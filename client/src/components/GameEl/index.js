@@ -18,11 +18,8 @@ const GameEl = () => {
     const [showInvalidSubmission, setShowInvalidSubmission] = useState(false);
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
-    
     const cardRef = useRef(null)
-
     const [sendUserInput, {error}] = useMutation(SEND_USER_INPUT);
-
     useEffect(() => {
         scrollToBottom();
     }, [message])
@@ -48,7 +45,6 @@ const GameEl = () => {
     const scrollToBottom = () => {
         window.scrollTo(0, document.body.scrollHeight)
     }
-
     const formatTimer = time => {
         const minutes = Math.floor(time/60);
         const seconds = time % 60;
@@ -156,6 +152,7 @@ const GameEl = () => {
     return (
         <div>
             <Row align="middle" justify="space-between">
+
                 <Col sm={24} md={{span: 18, offset: 3}}>
                     <div className='instructions'>
                         <h3 className="rules-title">Rules of the game</h3>

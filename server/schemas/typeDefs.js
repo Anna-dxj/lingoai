@@ -35,6 +35,14 @@ const typeDefs = gql`
     message: String!
   }
 
+  type TranslatedText {
+    en: String
+  }
+
+  type Translation {
+    translated_text: TranslatedText
+  }
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
@@ -42,6 +50,7 @@ const typeDefs = gql`
     removeWord(wordId: ID!): User
     sendUserInput(input: String!): Response!
     sendUserChat(chat: String!): Response!
+    sendTranslation(word: String!): Translation!
   }
 `;
 
