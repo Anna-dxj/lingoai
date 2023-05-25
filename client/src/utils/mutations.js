@@ -49,7 +49,6 @@ export const REMOVE_WORD = gql`
   }
 `;
 
-
 //client mutation for ChatGPT Word Game
 export const SEND_USER_INPUT = gql`
   mutation SendUserInput($input: String!) {

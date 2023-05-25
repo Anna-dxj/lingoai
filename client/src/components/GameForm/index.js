@@ -18,6 +18,10 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
         setIsGameForm(!isGameForm);
     }
 
+    const handleChange = (value) => {
+        setLanguage(value);
+    }
+
     return (
         <div>
             {isGameForm ? (
@@ -139,39 +143,5 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
         </div>
     );
 }
-// Commented out potentially irrelevant code below, but keeping for reference
 
-//     const [formState, setFormState] = useState({ language: '', topic: '' });
-  
-//     // update state based on form input changes
-//     const handleChange = (event) => {
-//       const { language, value } = event.target;
-  
-//       setFormState({
-//         ...formState,
-//         [language]: value,
-//       });
-//     };
-  
-    // submit form
-    // const handleFormSubmit = async () => {
-    // // Doesn't take event
-    //   try {
-    //     const { data } = await login({
-    //         variables: { 
-    //             ...formState
-    //         },
-    //     });
-  
-    //     Auth.login(data.login.token);
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-  
-    //   // clear form values
-    //   setFormState({
-    //     language: '',
-    //     topic: '',
-    //   });
-    // };
 export default GameForm
