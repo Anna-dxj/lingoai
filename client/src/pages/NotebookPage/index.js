@@ -15,7 +15,7 @@ const NotebookPage = () => {
 
   if (!Auth.loggedIn()) {
     return (
-      <h4>
+      <h4 className="warning">
         You need to be logged in to see your notebook. Use the navigation link
         above to log in!
       </h4>
