@@ -10,7 +10,7 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
     const [openModal, setOpenModal] = useState(false);
     const [noSave, setNoSave] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
-    const [translatedText, setTranslatedText] = useState('')
+    const [translatedText, setTranslatedText] = useState('');
     const [loadingDiv, setLoadingDiv] = useState(true);
     const messageRef = useRef(null);
 
@@ -93,17 +93,17 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
         setNoSave(false);
     }
     return (
-        <div ref={messageRef}>
+        <div>
             { sender === 'user' ? (
-                <div key={id}>
+                <div key={id} ref={messageRef}>
                     <div className="user-response">
-                        <p className="sender">{data.me.username}:</p>
+                        <p className="sender">You:</p>
                         <p className="content user-message">{content}</p>
                     </div>
                 </div>
             ) : (
                 <div >
-                    <div key={id}>
+                    <div key={id} ref={messageRef}>
                         <div className="ai-response">
                             <div className={showMessage ? '' : 'hidden'}>
                                 <p className="sender">LingoAI:</p>

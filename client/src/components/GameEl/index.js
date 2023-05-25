@@ -8,15 +8,15 @@ import Auth from '../../utils/auth'
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
-const GameEl = () => {
+const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showInstructions, setShowInstructions}) => {
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
     const [remainingTime, setRemainingTime] = useState(301);
-    const [activeTimer, setActiveTimer] = useState(false);
+    // const [activeTimer, setActiveTimer] = useState(false);
     const [showText , setShowText] = useState(true);
     const [disabledEl, setDisabledEl] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [showReplay, setShowReplay] = useState(false);
+    // const [showReplay, setShowReplay] = useState(false);
     const [showInvalidSubmission, setShowInvalidSubmission] = useState(false);
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
@@ -173,7 +173,7 @@ const GameEl = () => {
             <Row align="middle" justify="space-between">
 
                 <Col sm={24} md={{span: 18, offset: 3}}>
-                    <div className='instructions'>
+                    <div className={showInstructions ? 'instructions' : 'hidden'}>
                         <h3 className="rules-title">Rules of the game</h3>
                         <ul>
                             <li><span className="list-item-main">Starting</span> - Submit a word in Spanish to begin the game</li>

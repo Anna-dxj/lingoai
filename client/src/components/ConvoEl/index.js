@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Row, Col, Form, Input, Button, Space, ConfigProvider, Modal, Select } from 'antd';
 import {SendOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/client';
@@ -6,17 +6,25 @@ import { SEND_USER_CHAT } from '../../utils/mutations';
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
-const ConvoEl = () => {
+const ConvoEl = ({showForm, setShowForm, clearChat, setClearChat}) => {
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
     const [showCard , setShowCard] = useState(false);
     const [sendUserChat, {error}] = useMutation(SEND_USER_CHAT);
     const [showPromptCard, setShowPromptCard] = useState(false);
     const [promptTxt, setPromptTxt] = useState('')
-    const [showForm, setShowForm] = useState(true);
     const [promptFormState, setShowPromptFormState] = useState([])
 
     const {TextArea} = Input;
+
+    useEffect(() => {
+        if (clearChat) {
+            setMessage([]);
+            setFormState({input: ''})
+            setClearChat(!clearChat)
+            setShowCard(false);
+        }
+    }, [clearChat, setClearChat])
 
     const handlePromptChange = (value) => {
         setShowPromptFormState({
@@ -38,9 +46,13 @@ const ConvoEl = () => {
             setPromptTxt('Tienes hermanos?')
         } else if (promptFormState.input === 'free') {
             setPromptTxt('Free chat')
+        } else {
+            return;
         }
         setShowPromptCard(true);
-        setShowForm(false);
+        setShowForm(!showForm);
+        setMessage([])
+        setShowCard(false)
     }
 
     const handleChange = (event) => {
