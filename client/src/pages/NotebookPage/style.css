@@ -1,9 +1,62 @@
 :root {
-    --dark-gray: #4d5057;
-    --dark-green: #4e6e5d;
-    --shamrock: #4da167;
-    --dark-pastel: #41c745;
-    --linen: #f9ebe0;
+  --dark-gray: #4d5057;
+  --dark-green: #4e6e5d;
+  --shamrock: #4da167;
+  --dark-pastel: #41c745;
+  --linen: #f9ebe0;
+  --faded-bg: #41c74670;
+  --faded-text: #ddddd6;
+}
+
+.button {
+  width: 50%;
+  display: block;
+  margin: 1% auto;
+  background-color: rgb(239, 239, 239);
+  color: black;
+}
+
+/* unable to override Ant hover styling on buttons */
+.button:hover {
+  background-color: #ffffffa8;
+  color: black;
+}
+
+.instructions {
+  background-color: var(--dark-gray);
+  color: white;
+  padding: 0.25rem 1.25rem;
+  margin: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 3px 6px 27px 0px #0000007e;
+  transition: box-shadow 0.7s ease-in-out;
+}
+
+.instructions:hover {
+  box-shadow: 3px 6px 27px 0px #000000af;
+}
+
+.rules-title {
+  transition: color 0.7s ease-in-out;
+}
+
+.instructions:hover .rules-title {
+  color: var(--dark-pastel);
+}
+
+.prompt {
+  padding: 1rem;
+  margin: 0.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--faded-bg);
+  color: var(--faded-text);
+  font-weight: 500;
+  transition: all 0.7s ease-in-out;
+}
+
+.instructions:hover .prompt {
+  background-color: var(--shamrock);
+  color: white;
 }
 
 .warning {

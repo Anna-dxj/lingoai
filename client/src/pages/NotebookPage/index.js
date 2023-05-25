@@ -1,17 +1,17 @@
 import React from 'react';
-import {Row, Col} from 'antd'
+import { Row, Col, Spin } from 'antd'
 import './style.css';
-import {useQuery} from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const NotebookPage = () => {
-  const { data } = useQuery(QUERY_ME);
+  const { data, loading, error  } = useQuery(QUERY_ME);
 
-  let user;
-  if (Auth.loggedIn()) {
-    user = data.user;
-  }
+  // let user;
+  // if (Auth.loggedIn()) {
+  //   user = data.user;
+  // }
 
   if (!Auth.loggedIn()) {
     return (
@@ -21,6 +21,16 @@ const NotebookPage = () => {
       </h4>
     );
   }
+
+  if (loading) {
+    return <Spin size="large" />;
+  }
+
+  if (error) {
+    return <div>Error fetching data</div>;
+  }
+
+  const user = data?.user;
 
   return (
     <div>
