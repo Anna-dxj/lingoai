@@ -18,9 +18,9 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
         setIsGameForm(!isGameForm);
     }
 
-    const handleChange = (value) => {
-        setLanguage(value);
-    }
+    // const handleChange = (value) => {
+    //     setLanguage(value);
+    // }
 
     return (
         <div>
