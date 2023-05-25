@@ -31,8 +31,10 @@ const LoginForm = () => {
                 ...formState
             },
         });
-  
+
+        console.log('token received', data.login, data.user);
         Auth.login(data.login.token);
+        console.log('token saved to local storage', Auth.getToken())
       } catch (e) {
         console.error(e);
       }

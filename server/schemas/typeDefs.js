@@ -12,7 +12,7 @@ const typeDefs = gql`
   type Word {
     _id: ID
     original_text: String!
-    en: String!
+    en: String
   }
 
   input wordInput {

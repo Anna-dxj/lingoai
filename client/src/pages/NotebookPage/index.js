@@ -1,6 +1,9 @@
 import React from 'react';
+import {Row, Col} from 'antd'
 import './style.css';
-import { QUERY_ME } from '../utils/queries';
+import {useQuery} from '@apollo/client'
+import { QUERY_ME } from '../../utils/queries';
+import Auth from '../../utils/auth';
 
 const NotebookPage = () => {
   const { data } = useQuery(QUERY_ME);

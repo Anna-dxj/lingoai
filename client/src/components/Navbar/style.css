@@ -24,6 +24,15 @@ nav {
     color: var(--dark-pastel);
 }
 
+.custom-menu {
+    background-color: var(--dark-gray);
+}
+
 .menu-item-custom {
+    background-color: var(--dark-gray);
     color: white;
+}
+
+.menu-link:hover {
+    color: #4D5057
 }
