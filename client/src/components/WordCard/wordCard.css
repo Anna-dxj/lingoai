@@ -9,9 +9,9 @@
 }
 
 .button {
-    width: 50%;
-    display: block;
-    margin: 1% auto;
+    width: 40%;
+    display: inline;
+    margin: 1% 1%;
     background-color: rgb(239, 239, 239);
     color: black;
 }
@@ -22,17 +22,19 @@
     color: black;
 }
 
-.instructions {
+.word-card {
     background-color: var(--dark-gray);
     color: white;
     padding: 0.25rem 1.25rem;
-    margin: 1.25rem; 
+    margin: 1.25rem 1.25rem; 
     border-radius:  0.75rem;
     box-shadow: 3px 6px 27px 0px #0000007e;
     transition: box-shadow 0.7s ease-in-out;
+    width: 25vw;
+    flex: 1;
 } 
 
-.instructions:hover {
+.word-card:hover {
     box-shadow: 3px 6px 27px 0px #000000af;
 }
 

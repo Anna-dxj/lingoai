@@ -8,7 +8,7 @@ const WordCard = () => {
         <div>
             <Row align="middle" justify="space-between">
                 <Col sm={24}>
-                    <div className='instructions'>
+                    <div className='word-card'>
                         <h3 className="rules-title">Saved Word in Spanish</h3>
                         <div className='prompt'>
                             Translated word 
