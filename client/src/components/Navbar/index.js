@@ -10,14 +10,14 @@ const Navbar = () => {
     return (
         <nav>
             <Row align="middle">
-                <Col sm={14}>
+                <Col sm={18} md={19}>
                     <h1 className="title">
                         <Link to="/" className="home-link">
                             LingoAI
                         </Link>
                     </h1>
                 </Col>
-                <Col sm={10}>
+                <Col sm={6} md={5}>
                     <ConfigProvider theme={{
                         token: {
                             colorPrimary: '#3BC14A',
@@ -34,14 +34,14 @@ const Navbar = () => {
                                 - controlItemBgActive - color when active*/}      
                             {
                                 Auth.loggedIn() ? (
-                                    <div>
+                                    <>
                                         <Menu.Item className="menu-item-custom">
                                             <Link to="/notebook" className="menu-link">Notebook</Link>
                                         </Menu.Item>
                                         <Menu.Item className='menu-item-custom'>
                                             <Link to='/' onClick={Auth.logout}>Logout</Link>
                                         </Menu.Item>
-                                    </div>
+                                    </>
                                 ) : (
                                     <Menu.Item className='menu-item-custom'>
                                         <Link to='/login'> Login</Link>
