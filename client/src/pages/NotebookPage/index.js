@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Spin, Button, ConfigProvider } from 'antd';
 import './style.css';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { REMOVE_WORD } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
@@ -64,7 +65,7 @@ const NotebookPage = () => {
                       <div className="prompt">English: {en}</div>
                       <ConfigProvider theme={{
                         token: {
-                          colorPrimary: '#4DA167'
+                          colorPrimary: '#4da167'
                         }
                       }}>
                         <Button
@@ -88,4 +89,5 @@ const NotebookPage = () => {
     </div>
   );
 };
+
 export default NotebookPage

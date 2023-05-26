@@ -8,21 +8,26 @@
   --faded-text: #ddddd6;
 }
 
-.button {
+.page-title {
+  padding: 5%, 13%;
+  margin: 5%;
+}
+
+.word-card-button {
   width: 50%;
-  display: block;
-  margin: 1% auto;
+  display: inline;
+  margin: 1%;
   background-color: rgb(239, 239, 239);
-  color: black;
+  color: black; 
 }
 
 /* unable to override Ant hover styling on buttons */
-.button:hover {
+.word-card-button:hover {
   background-color: #ffffffa8;
   color: black;
 }
 
-.instructions {
+.word-card {
   background-color: var(--dark-gray);
   color: white;
   padding: 0.25rem 1.25rem;
@@ -30,6 +35,8 @@
   border-radius: 0.75rem;
   box-shadow: 3px 6px 27px 0px #0000007e;
   transition: box-shadow 0.7s ease-in-out;
+  width: 25vw;
+  flex: 1;
 }
 
 .instructions:hover {
@@ -57,4 +64,10 @@
 .instructions:hover .prompt {
   background-color: var(--shamrock);
   color: white;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

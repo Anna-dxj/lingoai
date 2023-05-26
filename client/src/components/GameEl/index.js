@@ -6,26 +6,21 @@ import { SEND_USER_INPUT } from '../../utils/mutations'
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
-const GameEl = () => {
+const GameEl = ({setActiveTimer, activeTimer, showReplay, setShowReplay, showInstructions, setShowInstructions}) => {
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
     const [remainingTime, setRemainingTime] = useState(301);
-    const [activeTimer, setActiveTimer] = useState(false);
     const [showText , setShowText] = useState(true);
     const [disabledEl, setDisabledEl] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [showReplay, setShowReplay] = useState(false);
     const [showInvalidSubmission, setShowInvalidSubmission] = useState(false);
     const [showInvalidWord, setShowInvalidWord] = useState(false);
     const [showInvalidPlay, setShowInvalidPlay] = useState(false);
     const [showInvalidRepeat, setShowInvalidRepeat] = useState(false);
     const [showRepeatedResponse, setShowRepeatedResponse] = useState('')
     const [showWin, setShowWin] = useState(false);
-    // const cardRef = useRef(null)
+
     const [sendUserInput, {error}] = useMutation(SEND_USER_INPUT);
-    // useEffect(() => {
-    //     scrollToBottom();
-    // }, [message])
 
     useEffect(() => {
         let timer;
@@ -45,24 +40,10 @@ const GameEl = () => {
         return () => clearInterval(timer)
     }, [activeTimer, remainingTime])
 
-    // const scrollToBottom = () => {
-    //     window.scrollTo(0, document.body.scrollHeight)
-    // }
     const formatTimer = time => {
         const minutes = Math.floor(time/60);
         const seconds = time % 60;
         return `${minutes}:${seconds.toString().padStart(2, '0')}`
-    }
-
-    const checkIsWord = (userInput) => {
-        // TODO; 
-        // DICTIONARY API CALL!
-        // const data = ''
-        // if (!data) {
-        //     setShowInvalidWord(true);
-        //     return false;
-        // }
-        // return true
     }
 
     const handleInvalidWord = () => {
@@ -76,6 +57,9 @@ const GameEl = () => {
     }
     const handleInvalidRepeat = () => {
         setShowInvalidRepeat(false);
+    }
+    const handleCloseWinModal = () => {
+        setShowWin(false);
     }
     const handleChange = (event) => {
         const {name, value} = event.target; 
@@ -100,7 +84,7 @@ const GameEl = () => {
         }
 
         try {
-            //Add WordReference API?
+            //Future Development: Add dictionary API
             // const isValidWord = checkIsWord(userInput);
 
             // if (!isValidWord) {
@@ -119,7 +103,7 @@ const GameEl = () => {
                     sender: 'user',
                 }
     
-                const aiContent = data.sendUserInput.message.slice(0, -1)
+                const aiContent = data.sendUserInput.message.slice(0, -1).toLowerCase()
     
                 const newAiMessage = {
                     id: message.length+2,
@@ -168,6 +152,8 @@ const GameEl = () => {
         setShowReplay(false);
         setDisabledEl(false);
         setShowModal(false);
+        setShowWin(false);
+        setFormState({input: ''})
     }
     const handleHideModal = () => {
         setShowModal(false);
@@ -177,7 +163,7 @@ const GameEl = () => {
             <Row align="middle" justify="space-between">
 
                 <Col sm={24} md={{span: 18, offset: 3}}>
-                    <div className='instructions'>
+                    <div className={showInstructions ? 'instructions' : 'hidden'}>
                         <h3 className="rules-title">Rules of the game</h3>
                         <ul>
                             <li><span className="list-item-main">Starting</span> - Submit a word in Spanish to begin the game</li>
@@ -192,7 +178,6 @@ const GameEl = () => {
             </Row>
             <Row justify="center">
                 <div className="">
-                    {/* If time, make sticky */}
                     <div className="timer-div">
                         <h4>Remaining Time: {
                                 remainingTime <= 300 ? (
@@ -352,16 +337,13 @@ const GameEl = () => {
                     title="YOU WIN!"
                     centered
                     open={showWin}
-                    footer={[
-                        <Button type="primary" onClick={handleReplayGame}>
-                            Play again
-                        </Button>
-                    ]}
+                    okText="Play again"
+                    onOk={handleReplayGame}
+                    cancelText="No thanks"
+                    onCancel={handleCloseWinModal}
                 >
                     <p>LingoAI sent a repeated word ({showRepeatedResponse})</p>
-                    {/* Remaining time show seconds ==> min:sec  */}
-                    {/* also the button doesn't work */}
-                    <p>You win with {remainingTime} remaining!</p>
+                    <p>You win with {formatTimer(remainingTime)} remaining!</p>
                 </Modal>
             </ConfigProvider>
         </div>
