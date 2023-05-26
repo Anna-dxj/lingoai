@@ -23,15 +23,10 @@ const Navbar = () => {
                             colorPrimary: '#3BC14A',
                             colorBgBase: '#4D5057',
                             colorTextBase: '#3BC14A',
-                            // lineType: 'none',
                             lineWidth: -1,
                         },
                     }}>
                         <Menu mode="horizontal" className="custom-menu">
-                            {/* For "custom" styling: 
-                                - colorGbContainer (string) -> fill background color  
-                                - colorTextDisabled - color of text in disabled state
-                                - controlItemBgActive - color when active*/}      
                             {
                                 Auth.loggedIn() ? (
                                     <>

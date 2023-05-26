@@ -12,6 +12,12 @@
     display: none;
 }
 
+.form-button {
+    margin: 0.2rem;
+    padding: 1rem;
+    width: 100%;
+}
+
 .instructions {
     background-color: var(--dark-gray);
     color: white;

@@ -1,27 +1,58 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { Row, Col, Form, Input, Button, Space, ConfigProvider } from 'antd';
+import React, {useState, useEffect} from 'react';
+import { Row, Col, Form, Input, Button, Space, ConfigProvider, Modal, Select } from 'antd';
 import {SendOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/client';
 import { SEND_USER_CHAT } from '../../utils/mutations';
 import ResponseEl from '../ResponseEl'
 import './style.css'
 
-const ConvoEl = () => {
+const ConvoEl = ({showForm, setShowForm, clearChat, setClearChat}) => {
     const [formState, setFormState] = useState({input: ''});
     const [message, setMessage] = useState([])
     const [showCard , setShowCard] = useState(false);
-    const [sendUserChat, {error}] = useMutation(SEND_USER_CHAT)
-    // const cardRef = useRef(null)
+    const [sendUserChat, {error}] = useMutation(SEND_USER_CHAT);
+    const [showPromptCard, setShowPromptCard] = useState(false);
+    const [promptTxt, setPromptTxt] = useState('')
+    const [promptFormState, setShowPromptFormState] = useState([])
 
-    // useEffect(() => {
-    //     scrollToBottom();
-    // }, [message])
 
-    // const scrollToBottom = () => {
-    //     window.scrollTo(0, document.body.scrollHeight)
-    // }
+    useEffect(() => {
+        if (clearChat) {
+            setMessage([]);
+            setFormState({input: ''})
+            setClearChat(!clearChat)
+            setShowCard(false);
+        }
+    }, [clearChat, setClearChat])
 
-    const {TextArea} = Input;
+    const handlePromptChange = (value) => {
+        setShowPromptFormState({
+            ...promptFormState,
+            input: value,
+        })
+    }
+
+    const handlePromptSubmission = () => {
+        if (promptFormState.input === 'travel') {
+            setPromptTxt('A dónde quieres viajar?')
+        } else if (promptFormState.input === 'cooking') {
+            setPromptTxt('Sabes cocinar?')
+        } else if (promptFormState.input === 'sports') {
+            setPromptTxt('Cuál es tu deporte favorito?')
+        } else if (promptFormState.input === 'shopping') {
+            setPromptTxt('Te gusta ir de compras o comprar cosas en línea?')
+        } else if (promptFormState.input === 'family') {
+            setPromptTxt('Tienes hermanos?')
+        } else if (promptFormState.input === 'free') {
+            setPromptTxt('Free chat')
+        } else {
+            return;
+        }
+        setShowPromptCard(true);
+        setShowForm(!showForm);
+        setMessage([])
+        setShowCard(false)
+    }
 
     const handleChange = (event) => {
         const {name, value} = event.target; 
@@ -74,7 +105,8 @@ const ConvoEl = () => {
                     <div className='instructions'>
                         <h3 className="rules-title">Prompt</h3>
                         <div className='prompt'>
-                            Amir's hard-coded prompt
+                            <p className={showPromptCard ? 'hidden' : ''}>Please select a prompt</p>
+                            <p className={showPromptCard ? '' : 'hidden'}>{promptTxt}</p>
                         </div>
                     </div>
                 </Col>
@@ -98,7 +130,7 @@ const ConvoEl = () => {
                     <Form onFinish={handleFormSubmit}>
                         <Form.Item>
                             <Space.Compact className='form-input'>
-                                <TextArea 
+                                <Input 
                                     type="text"
                                     name="input"
                                     value={formState.input}
@@ -109,6 +141,69 @@ const ConvoEl = () => {
                         </Form.Item>
                     </Form>
                 </ConfigProvider>
+                <ConfigProvider theme = {{
+                        token: {
+                            colorPrimary: '#3BC14A',
+                        }
+                    }}>
+                        <Modal
+                            title="Choose a prompt!"
+                            open={showForm}
+                            centered
+                            closable={false}
+                            footer={[
+                            ]}
+                        >
+                            <Form>
+                                <Form.Item
+                                    name="input"
+                                    rules={[{required: true, message: 'Please select a prompt!'}]}
+                                >
+                                    <Select 
+                                        placeholder="Please select a prompt"
+                                        value={formState.input}
+                                        onChange={handlePromptChange}
+                                        options={[
+                                            {
+                                                name: 'travel',
+                                                value: 'travel',
+                                                label: 'Travel'
+                                            },
+                                            {
+                                                name: 'cooking',
+                                                value: 'cooking',
+                                                label: 'Cooking'
+                                            },
+                                            {
+                                                name: 'sports',
+                                                value: 'sports',
+                                                label: 'Sports'
+                                            },
+                                            {
+                                                name: 'shopping', 
+                                                value: 'shopping',
+                                                label: 'Shopping'
+                                            },
+                                            {
+                                                name: 'family',
+                                                value: 'family',
+                                                label: 'Family'
+                                            },
+                                            {
+                                                name: 'free-chat',
+                                                value: 'free',
+                                                label: 'Free chat'
+                                            },
+                                        ]}
+                                    >
+                                    </Select>
+                                </Form.Item>
+                                <Row justify='center'>
+                                    <Button className="form-btn" onClick={handlePromptSubmission}>Let's go</Button>
+                                </Row>
+                            </Form>
+                        </Modal>
+                    </ConfigProvider>
             </div>
         </div>
     )

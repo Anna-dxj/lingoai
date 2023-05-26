@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, Select, Space, ConfigProvider, Row, Col} from 'antd'
+import {Button, Form, Select, Space, ConfigProvider, Row, Col, Modal} from 'antd'
 import GameEl from '../GameEl'
 import ConvoEl from '../ConvoEl'
 import './style.css'
@@ -8,6 +8,12 @@ import './style.css'
 const GameForm = ( {isGameForm, setIsGameForm} ) => {
     const [showWordChain, setShowWordChain] = useState(false);
     const [showConvo, setShowConvo] = useState(false);
+    const [showForm, setShowForm] = useState(true);
+    const [pauseGame, setPauseGame] = useState(false);
+    const [activeTimer, setActiveTimer] = useState(false);
+    const [showInstructions, setShowInstructions] = useState(true);
+    const [showReplay, setShowReplay] = useState(false)
+    const [clearChat, setClearChat] = useState(false);
     const handleWordChain = () => {
         setShowWordChain(!showWordChain)
         setIsGameForm(!isGameForm);
@@ -18,9 +24,37 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
         setIsGameForm(!isGameForm);
     }
 
-    // const handleChange = (value) => {
-    //     setLanguage(value);
-    // }
+    
+    const handleNewPrompt = () => {
+        setShowForm(!showForm);
+    }
+
+    const handleClear = () => {
+        setClearChat(!clearChat);
+    }
+
+    const handleHideInstructions = () => {
+        setShowInstructions(!showInstructions)
+        console.log(showInstructions)
+    }
+
+    const handlePause = () => {
+        setPauseGame(true);
+        setActiveTimer(false);
+        setShowReplay(false)
+    }
+
+    const handleQuit = () => {
+        setPauseGame(false);
+        setShowReplay(true);
+    }
+
+    const handleResume = () => {
+        setPauseGame(false);
+        setActiveTimer(true);
+        setShowReplay(false);
+    }
+
 
     return (
         <div>
@@ -36,8 +70,8 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                 <Form
                                     className="login-form"
                                     layout="vertical"
-                                    // onFinish={handleFormSubmit}
                                 >
+                                    {/* Future Dev: add language option
                                     <Form.Item
                                         label="Language"
                                         name="language"
@@ -71,19 +105,6 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                             // onChange={handleChange}
                                             />
                                         </Space>
-                                    </Form.Item>
-                                    {/* Commented out to add to Practice Convo Component */}
-                                    {/* <Form.Item
-                                        label="Topic"
-                                        name="topic"
-                                    >
-                                        <Input 
-                                            type="text"
-                                            placeholder="What topic would you like to discuss?"
-                                            name="topic"
-                                            // value={formState.topic}
-                                            // onChange={handleChange}
-                                        />
                                     </Form.Item> */}
                                     <Row>
                                         <Col sm={24} md={11}>
@@ -117,10 +138,41 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                         colorPrimary: '#4da167',
                                     },
                                 }}>
-                                    <Button className="btn" onClick={handleWordChain}>Return to Menu</Button>
+                                    <div className='btn-menu-div'>
+                                        <Row>
+                                            <Space size={7}>
+                                                <Button onClick={handleWordChain}>Return to Menu</Button>
+                                                {activeTimer && (
+                                                    <Button onClick={handlePause}>Pause</Button>
+                                                )}
+                                                <Button onClick={handleHideInstructions}>
+                                                    {showInstructions ? 'Hide Instructions' : 'Show Instructions'}
+                                                </Button>
+                                            </Space>
+                                        </Row>
+                                    </div>
                                 </ConfigProvider>
                             </Row>
-                            <GameEl />
+                            <GameEl setActiveTimer={setActiveTimer} activeTimer={activeTimer} showReplay={showReplay} setShowReplay={setShowReplay} showInstructions={showInstructions} setShowInstructions={setShowInstructions}/>
+                            <ConfigProvider theme = {{
+                                token: {
+                                    colorPrimary: '#3BC14A',
+                                }
+                            }}>
+                                <Modal
+                                title="Game Paused"
+                                closable={false}
+                                open={pauseGame}
+                                centered
+                                okText="Quit Game"
+                                onOk={handleQuit}
+                                cancelText="Resume Game"
+                                onCancel={handleResume}
+                                >
+                                    Your game is paused with time remaining. 
+                                    Do you want to quit game?
+                                </Modal>
+                            </ConfigProvider>
                         </div>
                     )}
                     {showConvo && (
@@ -132,10 +184,18 @@ const GameForm = ( {isGameForm, setIsGameForm} ) => {
                                         colorPrimary: '#4da167',
                                     },
                                 }}>
-                                    <Button className="btn" onClick={handleConvo}>Return to Menu</Button>
+                                    <div className='btn-menu-div'>
+                                        <Row>
+                                            <Space size={7}>
+                                                <Button onClick={handleConvo}>Return to Menu</Button>
+                                                <Button onClick={handleNewPrompt}>New Prompt</Button>
+                                                <Button onClick={handleClear}>Clear Convo</Button>
+                                            </Space>
+                                        </Row>
+                                    </div>
                                 </ConfigProvider>
                             </Row>
-                            <ConvoEl />
+                            <ConvoEl showForm={showForm} setShowForm={setShowForm} clearChat={clearChat} setClearChat={setClearChat}/>
                         </div>
                     )}
                 </div>

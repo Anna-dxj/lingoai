@@ -10,7 +10,7 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
     const [openModal, setOpenModal] = useState(false);
     const [noSave, setNoSave] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
-    const [translatedText, setTranslatedText] = useState('')
+    const [translatedText, setTranslatedText] = useState('');
     const [loadingDiv, setLoadingDiv] = useState(true);
     const messageRef = useRef(null);
 
@@ -93,9 +93,9 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
         setNoSave(false);
     }
     return (
-        <div ref={messageRef}>
+        <div>
             { sender === 'user' ? (
-                <div key={id}>
+                <div key={id} ref={messageRef}>
                     <div className="user-response">
                         <p className="sender">You:</p>
                         <p className="content user-message">{content}</p>
@@ -103,7 +103,7 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
                 </div>
             ) : (
                 <div >
-                    <div key={id}>
+                    <div key={id} ref={messageRef}>
                         <div className="ai-response">
                             <div className={showMessage ? '' : 'hidden'}>
                                 <p className="sender">LingoAI:</p>
@@ -175,14 +175,6 @@ const ResponseEl = ({id, content, sender, game, convo}) => {
                 </div>
             )}
         </div>
-        // <Row>
-        //     <div className={sender==='user' ? 'flex-start' : 'flex-end'}>
-        //         <div key={id} className={sender === 'user' ? 'user-response' : 'ai-response'}>
-        //             <p className="sender">{sender === 'user' ? 'User: ' : 'LingoAI: '}</p> 
-        //             <p className="content">{content}</p>
-        //         </div>
-        //     </div>
-        // </Row>
     )
 }
 
