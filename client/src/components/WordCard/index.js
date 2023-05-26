@@ -1,24 +1,29 @@
 import React from 'react';
-import { Button, Row, Col } from 'antd'
+import { Button, Row, Col, ConfigProvider } from 'antd'
 import './wordCard.css'
 
 
-const WordCard = () => {
+const WordCard = ({_id, original_text, en,  handleDelete}) => {
     return (
-        <div>
+        <div key={_id}>
             <Row align="middle" justify="space-between">
                 <Col sm={24}>
-                    <div className='word-card'>
-                        <h3 className="rules-title">Saved Word in Spanish</h3>
-                        <div className='prompt'>
-                            Translated word 
-                        </div>
-                        <Button type="primary" className="button" htmlType='submit'>
-                            Edit
+                    <div className="word-card">
+                      <h3 className="rules-title">Spanish: {original_text}</h3>
+                      <div className="prompt">English: {en}</div>
+                      <ConfigProvider theme={{
+                        token: {
+                          colorPrimary: '#4da167'
+                        }
+                      }}>
+                        <Button
+                          type="primary"
+                          className="word-card-button"
+                          onClick={(event) => handleDelete(event, _id)}
+                        >
+                          Remove
                         </Button>
-                        <Button type="primary" className="button" htmlType='submit'>
-                            Remove
-                        </Button>
+                      </ConfigProvider>
                     </div>
                 </Col>
             </Row>
