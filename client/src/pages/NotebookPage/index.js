@@ -67,7 +67,6 @@ const NotebookPage = () => {
                           colorPrimary: '#4da167'
                         }
                       }}>
-
                         <Button
                           type="primary"
                           className="word-card-button"
