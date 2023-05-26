@@ -39,16 +39,16 @@ const resolvers = {
       return { token, user };
     },
     savedWord: async (parent, { original_text, en }, context) => {
-      console.log('test')
-      console.log('og text', original_text)
-      console.log('en', en)
+      console.log('test');
+      console.log('og text', original_text);
+      console.log('en', en);
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedWords: {original_text, en} } },
+          { $addToSet: { savedWords: { original_text, en } } },
           { new: true, runValidators: true }
         );
-        console.log(updateUser)
+        console.log(updateUser);
         return updateUser;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -57,7 +57,7 @@ const resolvers = {
       if (context.user) {
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedWords: { wordId } } },
+          { $pull: { savedWords: { _id: wordId } } },
           { new: true, runValidators: true }
         );
         return updateUser;

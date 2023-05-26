@@ -1,33 +1,33 @@
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
-    mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-            user {
-                _id
-                username
-            }
-        }
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+      }
     }
-`
+  }
+`;
 
 export const ADD_USER = gql`
-    mutation addUser ($username: String!, $email: String!, $password: String!) {
-        addUser(username: $username, email: $email, password: $password) {
-            token
-            user {
-                _id
-                username
-                email
-            }
-        }
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
     }
-`
+  }
+`;
 
 export const SAVED_WORD = gql`
-  mutation savedWord( $original_text: String!, $en: String!) {
-    savedWord( original_text: $original_text, en: $en) {
+  mutation savedWord($original_text: String!, $en: String!) {
+    savedWord(original_text: $original_text, en: $en) {
       _id
       savedWords {
         _id
@@ -38,13 +38,10 @@ export const SAVED_WORD = gql`
   }
 `;
 
-
 export const REMOVE_WORD = gql`
   mutation remove($wordId: ID!) {
     removeWord(wordId: $wordId) {
-      word {
-        _id
-      }
+      _id
     }
   }
 `;
