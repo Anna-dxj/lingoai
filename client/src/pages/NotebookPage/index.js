@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Spin, Button, ConfigProvider } from 'antd';
-import './style.css';
 import { useQuery, useMutation } from '@apollo/client';
 import { REMOVE_WORD } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
+import WordCard from '../../components/WordCard';
 import Auth from '../../utils/auth';
+import './style.css';
 const NotebookPage = () => {
   const { data, loading, error, refetch } = useQuery(QUERY_ME);
   const [deleteWord, { error: deleteError, data: deleteData }] =
@@ -56,29 +57,7 @@ const NotebookPage = () => {
           <h2 className="page-title">Your Saved Words</h2>
           <div className="card-container">
             {user.savedWords.map(({ _id, original_text, en }) => (
-              <div key={_id}>
-                <Row align="middle" justify="space-between">
-                  <Col sm={24}>
-                    <div className="word-card">
-                      <h3 className="rules-title">Spanish: {original_text}</h3>
-                      <div className="prompt">English: {en}</div>
-                      <ConfigProvider theme={{
-                        token: {
-                          colorPrimary: '#4da167'
-                        }
-                      }}>
-                        <Button
-                          type="primary"
-                          className="word-card-button"
-                          onClick={(event) => handleDelete(event, _id)}
-                        >
-                          Remove
-                        </Button>
-                      </ConfigProvider>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
+              <WordCard _id={_id} original_text={original_text} en={en} handleDelete={handleDelete} />
             ))}
           </div>
         </div>
